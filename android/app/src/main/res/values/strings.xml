@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">android</string>
+    <string name="total_balance">TOTAL BALANCE</string>
 </resources>
