@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">android</string>
-    <string name="total_balance">TOTAL BALANCE</string>
+    <string name="total_balance">İşleme Ait Toplam Bakiye:</string>
+    <string name="total_balance_button">Bakiyeye Ekle</string>
+    <string name="donation_button">Bağışla</string>
+    <string name="space"></string>
+    <string name="profil">Profil</string>
+    <string name="k">Çıkış</string>
 </resources>
