@@ -6,4 +6,9 @@
     <string name="space"></string>
     <string name="profil">Profil</string>
     <string name="k">Çıkış</string>
+    <string name="email">E-mail</string>
+    <string name="password">Parola</string>
+    <string name="name">İsim</string>
+    <string name="surname">Soyisim</string>
+    <string name="signup">Kayıt Ol</string>
 </resources>
