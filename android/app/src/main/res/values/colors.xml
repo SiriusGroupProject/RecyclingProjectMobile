@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#070202</color>
     <color name="colorAccent">#D81B60</color>
     <color name="mainBlue">#2196F3</color>
+    <color name="toolBarColor">#28C678</color>
     <color name="headerBlue">#406894</color>
     <color name="white">#FFFF</color>
 </resources>

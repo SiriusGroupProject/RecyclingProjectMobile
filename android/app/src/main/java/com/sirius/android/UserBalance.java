@@ -22,7 +22,7 @@ public class UserBalance extends AppCompatActivity {
     private double balance;
     private String finalBalance;
     private TextView textView;
-    private String url = "http://www.mocky.io/v2/5e3e8878330000e91f8b0a31";
+    private String url = "http://www.mocky.io/v2/5e3e8878330000e91f8b0a31"; // ip edit
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
 
