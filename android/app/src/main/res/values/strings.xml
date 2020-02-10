@@ -11,4 +11,5 @@
     <string name="name">İsim</string>
     <string name="surname">Soyisim</string>
     <string name="signup">Kayıt Ol</string>
+    <string name="scan_barcode">QR Kodu Tara</string>
 </resources>
