@@ -12,4 +12,5 @@
     <string name="surname">Soyisim</string>
     <string name="signup">Kayıt Ol</string>
     <string name="scan_barcode">QR Kodu Tara</string>
+    <string name="scan_barcode_text">Atomat ile bağ kurup işleme başlamanız için, lütfen otomatın ekranında sunulan QR kodunu taratınız.</string>
 </resources>
