@@ -6,6 +6,15 @@
     android:gravity="center"
     tools:context=".ScanQRAutomat">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="294dp"
+        android:layout_height="85dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="@string/scan_barcode_text"
+        android:gravity="center"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
