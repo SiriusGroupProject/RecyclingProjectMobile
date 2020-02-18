@@ -7,4 +7,7 @@
     <color name="toolBarColor">#28C678</color>
     <color name="headerBlue">#406894</color>
     <color name="white">#FFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#9E9E9E</color>
 </resources>
