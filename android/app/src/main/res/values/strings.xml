@@ -17,5 +17,5 @@
     <string name="login_button">Giriş</string>
     <string name="username">Kullanıcı Adı/E-mail</string>
     <string name="passowrd">Parola</string>
-    <string name="newUser">Not a Member yet? Sign Up here.</string>
+    <string name="newUser">Hesap oluşturmak için tıklayın.</string>
 </resources>

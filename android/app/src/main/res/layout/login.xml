@@ -56,13 +56,26 @@
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602" />
+        app:layout_constraintVertical_bias="0.782" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="171dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/space"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/recyle1" />
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/user"
+        android:layout_width="246dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/userr"
+        android:drawableLeft="@drawable/userr"
         android:ems="10"
         android:hint="@string/username"
         android:importantForAutofill="no"
@@ -71,30 +84,31 @@
         app:layout_constraintEnd_toStartOf="@+id/endOfLoginButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/startOfLoginFields"
-        app:layout_constraintTop_toTopOf="@+id/topOfValues"
-        android:drawableStart="@drawable/user" />
+        app:layout_constraintTop_toTopOf="@+id/topOfValues" />
 
     <EditText
-        android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/password2"
+        android:layout_width="246dp"
+        android:layout_height="60dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableStart="@drawable/pass"
+        android:drawableLeft="@drawable/pass"
         android:ems="10"
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/endOfLoginButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/startOfLoginFields"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:drawableLeft="@drawable/password"
-        android:drawableStart="@drawable/password" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="244dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="220dp"
-        android:background="#28C678"
+        android:layout_width="248dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="172dp"
+        android:background="@drawable/rounded_corner_button"
         android:onClick="loginButtonListener"
         android:padding="12dp"
         android:text="@string/login"
@@ -109,7 +123,7 @@
         android:layout_width="244dp"
         android:layout_height="53dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="88dp"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/newUser"
@@ -118,7 +132,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent" />
 
 
