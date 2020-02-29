@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
 
     private void bindViews() {
         nameText = (EditText) findViewById(R.id.username);
-        passwordText = (EditText) findViewById(R.id.password2);
+        passwordText = (EditText) findViewById(R.id.password);
         loginButton = (Button) findViewById(R.id.loginButton);
         createAccountLink = (TextView) findViewById(R.id.create_account_link);
 
