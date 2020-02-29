@@ -1,6 +1,8 @@
 package com.sirius.android;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,12 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -27,11 +32,14 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = " ";
-    boolean success = true; // default false
+    private String url = "http://172.20.10.10:8080/rest/users/login";
+    boolean success = false; // default false
     private Button loginButton;
     private EditText nameText,passwordText;
     private TextView createAccountLink;
+    private RequestQueue mRequestQueue;
+    private StringRequest mStringRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,57 +65,48 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 name = nameText.getText().toString();
                 password = passwordText.getText().toString();
+                if (name.length() != 0 && password.length() != 0) {
 
-                JSONObject js = new JSONObject();
-                try {
-                    js.put("name",name);
-                    js.put("password",password);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(js);
-                JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                        Request.Method.POST, url, js,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("**", response.toString());
-                                try {
-                                    success = response.getBoolean("success");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                    mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                            try {
+                                if(response .equals("true")){
+                                    Intent intent = new Intent(Login.this, ListAutomats.class);
+                                    startActivity(intent);
+                                } else if(response.equals("false")){
+                                    Toast.makeText(getApplicationContext(), "Yanlış şifre ya da e-mai. Tekrar deneyiniz!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Bağlantı problemi", Toast.LENGTH_LONG).show();
                                 }
-                                if(success == true){
-                                    new Intent(Login.this, UserProfile.class);
-                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("**", error.toString());
-                        Toast.makeText(getApplicationContext(), "Connection problem. Please check your connection", Toast.LENGTH_LONG).show();
-                    }
-                }) {
 
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Content-Type", "application/json; charset=utf-8");
-                        return headers;
-                    }
 
-                };
-                // Adding request to request queue
-                Volley.newRequestQueue(Login.this).add(jsonObjReq);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("Error");
+                        }
+                    });
 
+                    mRequestQueue.add(mStringRequest);
+
+                }
+                else{
+
+                }
             }
-
         });
 
     }
