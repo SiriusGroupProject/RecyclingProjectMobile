@@ -10,7 +10,6 @@
     <string name="password">Parola</string>
     <string name="name">İsim</string>
     <string name="surname">Soyisim</string>
-    <string name="signup">Kayıt Ol</string>
     <string name="scan_barcode">QR Kodu Tara</string>
     <string name="scan_barcode_text">Atomat ile bağ kurup işleme başlamanız için, lütfen otomatın ekranında sunulan QR kodunu taratınız.</string>
     <string name="login">Hesaba Giriş</string>
@@ -18,4 +17,7 @@
     <string name="username">Kullanıcı Adı/E-mail</string>
     <string name="passowrd">Parola</string>
     <string name="newUser">Hesap oluşturmak için tıklayın.</string>
+    <string name="signIn">Giriş yapmak için tıklayın.</string>
+    <string name="newUserTitle">Yeni Üyelik</string>
+    <string name="newUserButton">ÜYELİK OLUŞTUR</string>
 </resources>

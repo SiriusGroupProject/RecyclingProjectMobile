@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_begin="82dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topOfValues"
@@ -75,8 +75,9 @@
         android:layout_height="60dp"
         android:background="@drawable/rounded_corner"
         android:drawableStart="@drawable/userr"
-        android:drawableLeft="@drawable/userr"
         android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:hint="@string/username"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
@@ -87,14 +88,15 @@
         app:layout_constraintTop_toTopOf="@+id/topOfValues" />
 
     <EditText
-        android:id="@+id/password2"
+        android:id="@+id/password"
         android:layout_width="246dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_corner"
         android:drawableStart="@drawable/pass"
-        android:drawableLeft="@drawable/pass"
         android:ems="10"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
@@ -120,8 +122,8 @@
 
     <TextView
         android:id="@+id/create_account_link"
-        android:layout_width="244dp"
-        android:layout_height="53dp"
+        android:layout_width="246dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="88dp"
         android:gravity="center"
