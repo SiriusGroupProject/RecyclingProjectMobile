@@ -4,35 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONObject;
+
 
 public class UserBalance extends AppCompatActivity {
 
-    private double balance;
     private String finalBalance;
-    private TextView textView;
-    private String url = "http://www.mocky.io/v2/5e3e8878330000e91f8b0a31"; // ip edit
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
+    private Button donationButton;
+    private Button totalBalanceButton;
+    private TextView balanceText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_balance);
-        sendAndRequestResponse();
         Toolbar toolbar = findViewById(R.id.userBalanceToolbar);
         setSupportActionBar(toolbar);
+        bindViews();
+        sendAndRequestResponse();
     }
 
     @Override
@@ -41,6 +36,15 @@ public class UserBalance extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    private void bindViews() {
+
+        donationButton = (Button) findViewById(R.id.donation);
+        totalBalanceButton = (Button) findViewById(R.id.balanceAdd);
+        // intentle total balance verisi alınacak
+        balanceText = (TextView) findViewById(R.id.balance);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -57,34 +61,19 @@ public class UserBalance extends AppCompatActivity {
 
     private void sendAndRequestResponse() {
 
-        mRequestQueue = Volley.newRequestQueue(this);
-
-        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-
-                // Total price execution
-
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject = new JSONObject(response);
-                    balance = jsonObject.getDouble("balance");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                TextView textView = (TextView) findViewById(R.id.balance);
-                finalBalance = "" + balance + "  ₺";
-                textView.setText(finalBalance);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Error");
+            public void onClick(View v) {
+                // eklenen tasarıma göre yazılacak
             }
         });
 
-        mRequestQueue.add(mStringRequest);
+        totalBalanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // total balance a eklenecek
+            }
+        });
     }
 
 }
