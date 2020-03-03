@@ -29,6 +29,7 @@
     <string name="add">Bakiyeye Ekle</string>
     <string name="donation">Bağış Yap</string>
     <string name="coin" />
+    <string name="default_notification_channel_id">s2</string>
 
 
 </resources>
