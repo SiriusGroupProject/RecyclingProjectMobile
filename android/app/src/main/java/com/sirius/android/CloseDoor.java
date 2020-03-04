@@ -21,7 +21,7 @@ public class CloseDoor extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //BİLGİ VER KAPILARIN KAPANMASI İÇİN
-                startActivity(new Intent(getApplicationContext(),CloseDoor.class));
+                startActivity(new Intent(getApplicationContext(),WaitingScreen.class));
             }
         });
     }
