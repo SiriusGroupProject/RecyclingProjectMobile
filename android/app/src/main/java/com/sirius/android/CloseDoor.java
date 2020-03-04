@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class BottleInfo extends AppCompatActivity{
+public class CloseDoor extends AppCompatActivity{
 
     Button  scanButton;
 
@@ -20,6 +20,7 @@ public class BottleInfo extends AppCompatActivity{
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //BİLGİ VER KAPILARIN KAPANMASI İÇİN
                 startActivity(new Intent(getApplicationContext(),CloseDoor.class));
             }
         });

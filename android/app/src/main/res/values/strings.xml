@@ -33,7 +33,10 @@
     <string name="coin" />
     <string name="default_notification_channel_id">s2</string>
     <string name="bottleinfo">Yukarıdaki şekilde görüldüğü gibi barkodunu okuttuğunuz şişeyi otomata dik bir şekilde yerleştirip bırakınız.</string>
-    <string name="bottleinfo_button">Devam Et.</string>
+    <string name="bottleinfo_button">Devam Et</string>
+    <string name="close_door_info">Şişenin gösterilen şekilde yerleştirildiğinden emin olduktan sonra tarama işlemine başlanması için
+        aşağıdaki düğmeye basıp otomatın kapağının kapanması için talimat veriniz.</string>
+    <string name="close_door_next">Kapağı kapat</string>
 
 
 </resources>
