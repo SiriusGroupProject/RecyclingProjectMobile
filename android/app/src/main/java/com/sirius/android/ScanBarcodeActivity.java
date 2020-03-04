@@ -101,7 +101,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         builder.setPositiveButton("Devam et.", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(),ScanBarcodeActivity.class));
+                startActivity(new Intent(getApplicationContext(),BottleInfo.class));
                 onPause();
             }
         });
