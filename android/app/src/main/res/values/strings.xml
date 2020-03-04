@@ -37,6 +37,8 @@
     <string name="close_door_info">Şişenin gösterilen şekilde yerleştirildiğinden emin olduktan sonra tarama işlemine başlanması için
         aşağıdaki düğmeye basıp otomatın kapağının kapanması için talimat veriniz.</string>
     <string name="close_door_next">Kapağı kapat</string>
+    <string name="waiting_text">Gerekli işlemler yapılmaktadır.</string>
+    <string name="waiting_text2">Lütfen bekleyiniz.</string>
 
 
 </resources>
