@@ -12,15 +12,15 @@
         android:layout_height="85dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="@string/scan_qr_info"
+        android:text="@string/scan_barcode_info"
         android:gravity="center"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/scan_qr"
+        android:text="@string/scan_barcode"
         android:textSize="16sp"
-        android:id="@+id/btnScanQR"></Button>
+        android:id="@+id/btnScanBarcode"></Button>
 
     <TextView
         android:layout_width="match_parent"
@@ -29,6 +29,6 @@
         android:gravity="center"
         android:textSize="25sp"
         android:layout_marginTop="10sp"
-        android:id="@+id/result_automat_code"></TextView>
+        android:id="@+id/result_barcode"></TextView>
 
 </LinearLayout>

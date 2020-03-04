@@ -8,8 +8,10 @@
     <string name="password">Parola</string>
     <string name="name">İsim</string>
     <string name="surname">Soyisim</string>
-    <string name="scan_barcode">QR Kodu Tara</string>
-    <string name="scan_barcode_text">Atomat ile bağ kurup işleme başlamanız için, lütfen otomatın ekranında sunulan QR kodunu taratınız.</string>
+    <string name="scan_qr">QR Kodu Tara</string>
+    <string name="scan_qr_info">Otomat ile bağ kurup işleme başlamanız için, lütfen otomatın ekranında sunulan QR kodunu taratınız.</string>
+    <string name="scan_barcode">Barkodu Tara</string>
+    <string name="scan_barcode_info">Otomata yerleştirmeden önce, lütfen şişenin barkodunu okutunuz.</string>
     <string name="login">Hesaba Giriş</string>
     <string name="login_button">Giriş</string>
     <string name="username">Kullanıcı Adı/E-mail</string>
