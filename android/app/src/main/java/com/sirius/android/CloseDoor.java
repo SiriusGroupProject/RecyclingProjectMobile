@@ -13,7 +13,7 @@ public class CloseDoor extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scan_qr_automat);
+        setContentView(R.layout.close_door);
 
         scanButton = (Button)findViewById(R.id.btnScanQR);
 
