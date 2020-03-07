@@ -19,16 +19,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, Login.class);
+        Intent intent = new Intent(MainActivity.this, BottleInfo.class);
         startActivity(intent);
-        runtimeEnableAutoInit();
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getId();
-                Log.e("newToken",newToken);
-            }
-        });
+        //runtimeEnableAutoInit();
+        //FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+           // @Override
+          //  public void onSuccess(InstanceIdResult instanceIdResult) {
+            //    String newToken = instanceIdResult.getId();
+              //  Log.e("newToken",newToken);
+           // }
+       // });
     }
 
     public void runtimeEnableAutoInit() {
