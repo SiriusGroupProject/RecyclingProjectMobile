@@ -140,7 +140,7 @@
         android:importantForAutofill="no"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/endOfLoginButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/startOfLoginFields"

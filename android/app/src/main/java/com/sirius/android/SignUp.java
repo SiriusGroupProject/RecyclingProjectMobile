@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
-    private String url = "http://172.20.10.10:8080/rest/users/addUser"; // ip edit
+    private String url = "http://10.2.37.16:8080/rest/users/addUser"; // ip edit
     private Button signUpButton;
     private EditText nameText, surnameText, emailText, passwordText;
     private TextView signInLink;
@@ -66,31 +66,33 @@ public class SignUp extends AppCompatActivity {
                 String password = passwordText.getText().toString();
 
                 JSONObject js = new JSONObject();
-                    try {
-                        js.put("name",name);
-                        js.put("surname",surname);
-                        js.put("email",email);
-                        js.put("password",password);
-                        js.put("balance",(float)0);
-                        js.put("isAdmin",false);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    js.put("name",name);
+                    js.put("surname",surname);
+                    js.put("email",email);
+                    js.put("password",password);
+                    js.put("balance",(float)0);
+                    js.put("isAdmin",false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 System.out.println(js);
-                    JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                            Request.Method.POST, url, js,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    Log.d("**", response.toString());
-                                }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("**", error.toString());
-                            Toast.makeText(getApplicationContext(), "Connection problem. Please check your connection", Toast.LENGTH_LONG).show();
-                        }
-                    }) {
+                JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                        Request.Method.POST, url, js,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("**", response.toString());
+                                Intent intent = new Intent(SignUp.this, Login.class);
+                                startActivity(intent);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("**", error.toString());
+                        Toast.makeText(getApplicationContext(), "Connection problem. Please check your connection", Toast.LENGTH_LONG).show();
+                    }
+                }) {
 
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
@@ -99,11 +101,11 @@ public class SignUp extends AppCompatActivity {
                         return headers;
                     }
 
-                    };
-                    // Adding request to request queue
-                    Volley.newRequestQueue(SignUp.this).add(jsonObjReq);
+                };
+                // Adding request to request queue
+                Volley.newRequestQueue(SignUp.this).add(jsonObjReq);
 
-                }
+            }
 
         });
 

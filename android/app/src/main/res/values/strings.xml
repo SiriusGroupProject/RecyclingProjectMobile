@@ -14,7 +14,7 @@
     <string name="scan_barcode_info">Otomata yerleştirmeden önce, lütfen şişenin barkodunu okutunuz.</string>
     <string name="login">Hesaba Giriş</string>
     <string name="login_button">Giriş</string>
-    <string name="username">Kullanıcı Adı/E-mail</string>
+    <string name="username">E-mail</string>
     <string name="passowrd">Parola</string>
     <string name="newUser">Hesap oluşturmak için tıklayın.</string>
     <string name="signIn">Giriş yapmak için tıklayın.</string>
