@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "406428561290",
-    "firebase_url": "https://sirius-c635b.firebaseio.com",
-    "project_id": "sirius-c635b",
-    "storage_bucket": "sirius-c635b.appspot.com"
+    "project_number": "707545149218",
+    "firebase_url": "https://recyclingprojectmobile.firebaseio.com",
+    "project_id": "recyclingprojectmobile",
+    "storage_bucket": "recyclingprojectmobile.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:406428561290:android:ff29c7b33211ef5f",
+        "mobilesdk_app_id": "1:707545149218:android:71bf4c97bea279067d7f7b",
         "android_client_info": {
           "package_name": "com.sirius.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "406428561290-2sej5jpbq75l6q5lu1hjegbq5fnc5p48.apps.googleusercontent.com",
+          "client_id": "707545149218-3gs522clfelf6js76qs2kl53fd2votf5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDzQjOAjPCIdyMB985CKgypM3tfhreN7ZY"
+          "current_key": "AIzaSyCs0TCSY24p1CnZu_Dc_O0aemwFlujsFtE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "406428561290-2sej5jpbq75l6q5lu1hjegbq5fnc5p48.apps.googleusercontent.com",
+              "client_id": "707545149218-3gs522clfelf6js76qs2kl53fd2votf5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
