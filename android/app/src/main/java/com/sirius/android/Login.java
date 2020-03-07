@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this, ListAutomats.class);
                 startActivity(intent);
                 Intent intentTransfer = new Intent(Login.this, UserProfile.class);
-                intentTransfer.putExtra("mail", name); // nameText.getText().toString()
+                intentTransfer.putExtra("mail", nameText.getText().toString()); // nameText.getText().toString()
             }else if(s.equals("false")){
                 Toast.makeText(getApplicationContext(), "Yanlış şifre ya da email. Lüften tekrar deneyiniz.", Toast.LENGTH_LONG).show();
             }else {
