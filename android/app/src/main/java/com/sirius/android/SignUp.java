@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
-    private String url = "http://10.2.37.16:8080/rest/users/addUser"; // ip edit
+    private String url = "http://10.4.37.92:8080/rest/users/addUser"; // ip edit
     private Button signUpButton;
     private EditText nameText, surnameText, emailText, passwordText;
     private TextView signInLink;
@@ -90,7 +90,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("**", error.toString());
-                        Toast.makeText(getApplicationContext(), "Connection problem. Please check your connection", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Bağlantı problemi. İnternet ayarlarınızı kontrol ediniz.", Toast.LENGTH_LONG).show();
                     }
                 }) {
 

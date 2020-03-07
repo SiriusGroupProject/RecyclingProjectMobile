@@ -29,7 +29,7 @@ public class UserProfile extends AppCompatActivity {
     private String name;
     private double balance;
     private String balanceFinal;
-    private String url = "http://172.20.10.10:8080/rest/users/listUsers";
+    private String url = "http://10.2.37.16:8080/rest/users/listUsers";
     private TextView mailText;
     private TextView nameText;
     private TextView balanceText;
@@ -64,10 +64,11 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void bindViews() {
+        mail = "eyuksek@etu.edu.tr";
         edit = (Button) findViewById(R.id.settings);
         mailText = (TextView)findViewById(R.id.mail);
-        mailText.setText(getIntent().getExtras().getString("mail"));
-        mail = mailText.toString();
+        mailText.setText(mail);//getIntent().getExtras().getString("mail")
+        //mail = mailText.toString();
     }
 
 
@@ -80,6 +81,9 @@ public class UserProfile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfile.this, NewPassword.class);
                 startActivity(intent);
+                Intent intentTransfer = new Intent(UserProfile.this, NewPassword.class);
+                intentTransfer.putExtra("mail", mail);
+                startActivity(intentTransfer);
             }
         });
 
@@ -95,7 +99,10 @@ public class UserProfile extends AppCompatActivity {
                         final JSONObject user = objectArray.getJSONObject(i);
                         mailTemp = user.getString("email");
                         if(mailTemp.equals(mail)){
-                            name = user.getString("name"+" "+"surname");
+                            String username = user.getString("name");
+                            String usersurname = user.getString("surname");
+                            name = username+ " "+usersurname;
+                            name = name.toUpperCase();
                             balance = user.getDouble("balance");
                             balanceFinal = Double.toString(balance);
                         }

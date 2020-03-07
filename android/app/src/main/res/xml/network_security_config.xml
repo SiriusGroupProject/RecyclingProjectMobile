@@ -4,6 +4,6 @@
         <domain includeSubdomains="true">www.mocky.io</domain>
     </domain-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">10.2.37.16</domain> // ip edit
+        <domain includeSubdomains="true">10.3.37.18</domain> // ip edit
     </domain-config>
 </network-security-config>
