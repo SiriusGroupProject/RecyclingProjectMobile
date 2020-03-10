@@ -33,7 +33,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         setContentView(ScannerView);
         int currentApiVersion = Build.VERSION.SDK_INT;
 
-        if(currentApiVersion == Build.VERSION_CODES.Q){
+        if(currentApiVersion == Build.VERSION_CODES.LOLLIPOP){
             if(checkPermission()){
                 Toast.makeText(getApplicationContext(),"Onay verildi!",Toast.LENGTH_LONG).show();
             }
@@ -60,20 +60,20 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"İstek reddedildi, kameraya erişemezsiniz.",Toast.LENGTH_LONG).show();
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                            if(shouldShowRequestPermissionRationale(CAMERA)){
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                            /*if(shouldShowRequestPermissionRationale(CAMERA)){
                                 showMessageOKCancel("Kameraya erişmek için izin vermelisiniz",
                                         new DialogInterface.OnClickListener(){
                                             @Override
                                             public void onClick(DialogInterface dialog, int which){
-                                                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                                                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                                                     requestPermissions(new String[]{CAMERA}, REQUEST_CAMERA);
                                                 }
                                             }
                                         });
                                 return;
                             }
-
+*/
                         }
                     }
                 }
@@ -121,7 +121,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
     public void onResume() {
         super.onResume();
         int currentApiVersion = Build.VERSION.SDK_INT;
-        if(currentApiVersion >= Build.VERSION_CODES.Q){
+        if(currentApiVersion >= Build.VERSION_CODES.LOLLIPOP){
             if(checkPermission()){
                 if(ScannerView == null){
                     ScannerView = new ZXingScannerView(this);
@@ -142,3 +142,4 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         ScannerView.stopCamera();
     }
 }
+
