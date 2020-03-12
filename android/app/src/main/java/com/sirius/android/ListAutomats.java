@@ -40,6 +40,8 @@ public class ListAutomats extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_automats);
+        Toolbar toolbar = findViewById(R.id.listAutomatsToolbar);
+        setSupportActionBar(toolbar);
 
         final TableView<String[]> tableView = (TableView<String[]>) findViewById(R.id.tableView);
 
@@ -93,6 +95,12 @@ public class ListAutomats extends AppCompatActivity{
 
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 
