@@ -20,6 +20,9 @@ public class ScanQRAutomat extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan_qr_automat);
+        Toolbar toolbar = findViewById(R.id.listAutomatsToolbar);
+        setSupportActionBar(toolbar);
+
 
         resultTextView = (TextView)findViewById(R.id.result_automat_code);
         scanButton = (Button)findViewById(R.id.btnScanQR);
@@ -30,6 +33,13 @@ public class ScanQRAutomat extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(),ScanCodeActivity.class));
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 
