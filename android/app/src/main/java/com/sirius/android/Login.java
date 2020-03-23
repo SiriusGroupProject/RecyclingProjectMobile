@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,7 +24,7 @@ import java.net.URL;
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = "http://10.2.37.16:8080/rest/users/login";
+    private String url = "http://172.20.10.3:8080/rest/users/login";
     boolean success = false; // default false
     private Button loginButton;
     private EditText nameText, passwordText;
@@ -95,6 +97,7 @@ public class Login extends AppCompatActivity {
         }
         protected void onPostExecute(String s){
             if (s.equals("true")) {
+                FirebaseMessaging.getInstance().subscribeToTopic("a");
                 Intent intent = new Intent(Login.this, ListAutomats.class);
                 startActivity(intent);
                 Intent intentTransfer = new Intent(Login.this, UserProfile.class);
