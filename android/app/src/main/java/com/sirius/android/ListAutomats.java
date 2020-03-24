@@ -34,6 +34,7 @@ public class ListAutomats extends AppCompatActivity{
     private static String[] tableHeaders={"İsim","Konum","Uzaklık","Doluluk"};
     private static RequestQueue mRequestQueue;
     private static JsonArrayRequest mArrayRequest;
+    private static String userId;
 
 
     @Override
@@ -42,6 +43,11 @@ public class ListAutomats extends AppCompatActivity{
         setContentView(R.layout.list_automats);
         Toolbar toolbar = findViewById(R.id.listAutomatsToolbar);
         setSupportActionBar(toolbar);
+
+        Bundle b = getIntent().getExtras();
+        userId = ""; // or other values
+        if(b != null)
+            userId = b.getString("userID");
 
         final TableView<String[]> tableView = (TableView<String[]>) findViewById(R.id.tableView);
 
@@ -88,8 +94,11 @@ public class ListAutomats extends AppCompatActivity{
             @Override
             public void onDataClicked(int rowIndex, Object clickedData) {
                 Toast.makeText(ListAutomats.this, ((String[])clickedData)[1], Toast.LENGTH_SHORT).show();
-                Intent profile = new Intent(ListAutomats.this, ScanQRAutomat.class);
-                startActivity(profile);
+                Intent intent = new Intent(ListAutomats.this, ScanQRAutomat.class);
+                Bundle b = new Bundle();
+                b.putString("userID",userId); //Your id
+                intent.putExtras(b);
+                startActivity(intent);
             }
         });
 

@@ -99,6 +99,9 @@ public class Login extends AppCompatActivity {
             if (s.equals("true")) {
                 FirebaseMessaging.getInstance().subscribeToTopic("a");
                 Intent intent = new Intent(Login.this, ListAutomats.class);
+                Bundle b = new Bundle();
+                b.putString("userID",nameText.getText().toString()); //Your id
+                intent.putExtras(b);
                 startActivity(intent);
                 Intent intentTransfer = new Intent(Login.this, UserProfile.class);
                 intentTransfer.putExtra("mail", nameText.getText().toString()); // nameText.getText().toString()
