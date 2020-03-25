@@ -1,8 +1,17 @@
 package com.sirius.android;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +19,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
+import androidx.core.app.ActivityCompat;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.BufferedReader;
@@ -25,20 +35,80 @@ public class Login extends AppCompatActivity {
     private String name;
     private String password;
     private String url = "http://172.20.10.3:8080/rest/users/login";
-    boolean success = false; // default false
     private Button loginButton;
     private EditText nameText, passwordText;
     private TextView createAccountLink;
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
 
+    private static final int REQUEST_LOCATION = 1;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener mlocListener = new MyLocationListener();
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+
         setContentView(R.layout.login);
         bindViews();
         setListeners();
     }
+
+    public class MyLocationListener implements LocationListener
+    {
+
+        @Override
+        public void onLocationChanged(Location loc)
+        {
+            //System.out.println(("My current location is: " +"Latitud = " + loc.getLatitude() +"Longitud = " + loc.getLongitude()));
+            if (loc != null) {
+                double latitude = loc.getLatitude();
+                double longitude = loc.getLongitude();
+                LocationAddress locationAddress = new LocationAddress();
+                locationAddress.getAddressFromLocation(latitude, longitude,
+                        getApplicationContext(), new GeocoderHandler());
+            }
+        }
+
+        private class GeocoderHandler extends Handler {
+            public void handleMessage(Message message) {
+                String locationAddress;
+                switch (message.what) {
+                    case 1:
+                        Bundle bundle = message.getData();
+                        locationAddress = bundle.getString("address");
+                        break;
+                    default:
+                        locationAddress = null;
+                }
+                //System.out.println((locationAddress));
+            }
+        }
+
+        @Override
+        public void onProviderDisabled(String provider)
+        {
+            Toast.makeText( getApplicationContext(), "Gps erişilemiyor", Toast.LENGTH_SHORT ).show();
+        }
+
+        @Override
+        public void onProviderEnabled(String provider)
+        {
+            Toast.makeText( getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras)
+        {
+
+        }
+    }
+
 
     private void bindViews() {
         nameText = (EditText) findViewById(R.id.username);
