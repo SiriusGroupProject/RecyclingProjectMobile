@@ -30,33 +30,56 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = "http://172.20.10.3:8080/rest/users/login";
+    private String url = "http://192.168.2.242:8080/rest/users/login";
     private Button loginButton;
     private EditText nameText, passwordText;
     private TextView createAccountLink;
-
-    private static final int REQUEST_LOCATION = 1;
+    private String subAdminArea;
+    private LocationManager mlocManager;
+    private LocationListener mlocListener;
+    private static final int REQUEST_PERMISSION_LOCATION = 255;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        LocationListener mlocListener = new MyLocationListener();
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        }
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
-
+        mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mlocListener = new MyLocationListener();
+        onRequestPermissionsResult();
         setContentView(R.layout.login);
         bindViews();
         setListeners();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void onRequestPermissionsResult() {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSION_LOCATION);
+        } else {
+            mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSION_LOCATION
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+    }
     }
 
     public class MyLocationListener implements LocationListener
@@ -65,7 +88,6 @@ public class Login extends AppCompatActivity {
         @Override
         public void onLocationChanged(Location loc)
         {
-            //System.out.println(("My current location is: " +"Latitud = " + loc.getLatitude() +"Longitud = " + loc.getLongitude()));
             if (loc != null) {
                 double latitude = loc.getLatitude();
                 double longitude = loc.getLongitude();
@@ -77,16 +99,19 @@ public class Login extends AppCompatActivity {
 
         private class GeocoderHandler extends Handler {
             public void handleMessage(Message message) {
-                String locationAddress;
+                ArrayList locationAddress;
                 switch (message.what) {
                     case 1:
                         Bundle bundle = message.getData();
-                        locationAddress = bundle.getString("address");
+                        locationAddress = bundle.getStringArrayList("address");
                         break;
                     default:
                         locationAddress = null;
                 }
-                //System.out.println((locationAddress));
+                subAdminArea = (String) locationAddress.get(1);
+                subAdminArea = subAdminArea.replaceAll("\\s+", "");
+                subAdminArea = subAdminArea.toLowerCase();
+                //System.out.println(subAdminArea);
             }
         }
 
@@ -167,7 +192,7 @@ public class Login extends AppCompatActivity {
         }
         protected void onPostExecute(String s){
             if (s.equals("true")) {
-                FirebaseMessaging.getInstance().subscribeToTopic("a");
+                FirebaseMessaging.getInstance().subscribeToTopic(subAdminArea);
                 Intent intent = new Intent(Login.this, ListAutomats.class);
                 Bundle b = new Bundle();
                 b.putString("userID",nameText.getText().toString()); //Your id
