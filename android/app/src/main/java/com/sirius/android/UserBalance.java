@@ -132,6 +132,7 @@ public class UserBalance extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent profile = new Intent(this, UserProfile.class);
+            profile.putExtra("mail", userId);
             startActivity(profile);
             return true;
         }
@@ -149,6 +150,7 @@ public class UserBalance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserBalance.this, UserProfile.class);
+                intent.putExtra("mail", userId);
                 startActivity(intent);
             }
         });

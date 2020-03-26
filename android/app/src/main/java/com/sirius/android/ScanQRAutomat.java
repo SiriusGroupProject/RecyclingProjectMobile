@@ -38,13 +38,29 @@ public class ScanQRAutomat extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(ScanQRAutomat.this, ScanCodeActivity.class);
                 Bundle b = new Bundle();
-                b.putString("userID","eyuksek@etu.edu.tr"); //Your id
+                b.putString("userID",userId); //Your id
                 intent.putExtras(b);
                 startActivity(intent);
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent profile = new Intent(this, UserProfile.class);
+            profile.putExtra("mail", userId);
+            startActivity(profile);
+            return true;
+        }
+        else if(id == R.id.action_logout){
+            Intent profile = new Intent(this, Login.class);
+            startActivity(profile);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -105,6 +105,24 @@ public class ListAutomats extends AppCompatActivity{
 
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent profile = new Intent(this, UserProfile.class);
+            profile.putExtra("mail", userId);
+            startActivity(profile);
+            return true;
+        }
+        else if(id == R.id.action_logout){
+            Intent profile = new Intent(this, Login.class);
+            startActivity(profile);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
