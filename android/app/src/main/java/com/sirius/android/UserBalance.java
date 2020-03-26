@@ -28,8 +28,8 @@ public class UserBalance extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String getUrl = "http://10.0.2.2:8080/rest/users/";
-    private String putUrl = "http://10.0.2.2:8080/rest/users/updateBalance/";
+    private String getUrl = "http://192.168.1.4:8080/rest/users/";
+    private String putUrl = "http://192.168.1.4:8080/rest/users/updateBalance/";
     private double userOldBalance;
     private double earnedBalance;
     private Button totalBalanceButton;

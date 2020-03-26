@@ -26,9 +26,9 @@ public class WaitingScreenQR extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String postUrl = "http://10.0.2.2:8080/connections/connection/";
-    private String getUrl = "http://10.0.2.2:8080/connections/waitingForConnection/";
-    private String getUserBalance = "http://10.0.2.2:8080/rest/users/";
+    private String postUrl = "http://192.168.1.4:8080/connections/connection/";
+    private String getUrl = "http://192.168.1.4:8080/connections/waitingForConnection/";
+    private String getUserBalance = "http://192.168.1.4:8080/rest/users/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postQRCode;

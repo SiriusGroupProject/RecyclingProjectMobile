@@ -26,7 +26,7 @@ public class BottleNotVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://10.0.2.2:8080/connections/getResult/";
+    private String getUrl = "http://192.168.1.4:8080/connections/getResult/";
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
     @Override
