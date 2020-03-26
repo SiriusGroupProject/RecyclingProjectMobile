@@ -15,6 +15,7 @@ public class ScanQRAutomat extends AppCompatActivity{
 
     public static TextView resultTextView;
     Button  scanButton;
+    private static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,11 @@ public class ScanQRAutomat extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.listAutomatsToolbar);
         setSupportActionBar(toolbar);
 
+        Bundle b = getIntent().getExtras();
+        userId = ""; // or other values
+        if(b != null)
+            userId = b.getString("userID");
+
 
         resultTextView = (TextView)findViewById(R.id.result_automat_code);
         scanButton = (Button)findViewById(R.id.btnScanQR);
@@ -30,7 +36,11 @@ public class ScanQRAutomat extends AppCompatActivity{
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ScanCodeActivity.class));
+                Intent intent = new Intent(ScanQRAutomat.this, ScanCodeActivity.class);
+                Bundle b = new Bundle();
+                b.putString("userID","eyuksek@etu.edu.tr"); //Your id
+                intent.putExtras(b);
+                startActivity(intent);
             }
         });
     }

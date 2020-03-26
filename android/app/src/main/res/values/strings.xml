@@ -32,13 +32,15 @@
     <string name="donation">Bağış Yap</string>
     <string name="coin" />
     <string name="default_notification_channel_id">s2</string>
-    <string name="bottleinfo">Yukarıdaki şekilde görüldüğü gibi barkodunu okuttuğunuz şişeyi otomata dik bir şekilde yerleştirip bırakınız.</string>
-    <string name="bottleinfo_button">Devam Et</string>
+    <string name="bottle_verified_info">Şişeniz doğrulanmıştır. Lütfen otomat ekranından hangi işlem ile devam edeceğinizi seçiniz.</string>
+    <string name="bottle_verified_info2">Bu işlemden kazandığınız miktar:</string>
+    <string name="bottle_notverified_info">Şişeniz kabul edilmemiştir. Lütfen otomat ekranından hangi işlem ile devam edeceğinizi seçiniz.</string>
     <string name="close_door_info">Şişenin gösterilen şekilde yerleştirildiğinden emin olduktan sonra tarama işlemine başlanması için
         aşağıdaki düğmeye basıp otomatın kapağının kapanması için talimat veriniz.</string>
     <string name="close_door_next">Kapağı kapat</string>
     <string name="waiting_text">Gerekli işlemler yapılmaktadır.</string>
-    <string name="waiting_text2">Lütfen bekleyiniz...</string>
+    <string name="waiting_text2">Lütfen otomat ekranındaki talimatlara uyunuz...</string>
+    <string name="waiting_text3">Lütfen bekleyiniz...</string>
     <string name="profile">Toplam Bakiye</string>
 
 

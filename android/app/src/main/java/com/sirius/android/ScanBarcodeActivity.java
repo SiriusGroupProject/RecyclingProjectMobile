@@ -96,19 +96,25 @@ public class ScanBarcodeActivity extends AppCompatActivity implements ZXingScann
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tarama Sonuçları");
-        builder.setPositiveButton("Devam et.", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(),BottleInfo.class));
-                onPause();
-            }
-        });
+        ScannerView.stopCamera();
 
-        builder.setMessage(result.getText()); // RESULT text
-        AlertDialog alert1 = builder.create();
-        alert1.show();
+        Bundle b = getIntent().getExtras();
+        String userId = ""; // or other values
+        String automatId = "";
+        double balance = 0.0;
+        if(b != null) {
+            userId = b.getString("userID");
+            automatId = b.getString("automatID");
+            balance = b.getDouble("balance");
+        }
+        Intent intent = new Intent(ScanBarcodeActivity.this, WaitingScreenBarcode.class);
+        Bundle bu = new Bundle();
+        bu.putString("userID",userId); //Your id
+        bu.putString("automatID",automatId);
+        bu.putString("barcode",result.getText());
+        bu.putDouble("balance",balance);
+        intent.putExtras(bu);
+        startActivity(intent);
     }
 
     @Override

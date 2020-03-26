@@ -15,6 +15,9 @@ public class ScanBarcode extends AppCompatActivity {
 
     public static TextView resultTextView;
     Button  scanButton;
+    private String userId;
+    private String automatId;
+    private Double balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +29,28 @@ public class ScanBarcode extends AppCompatActivity {
         resultTextView = (TextView)findViewById(R.id.result_barcode);
         scanButton = (Button)findViewById(R.id.btnScanBarcode);
 
+        Bundle b = getIntent().getExtras();
+        userId = ""; // or other values
+        automatId = "";
+        balance = 0.0;
+        if(b != null) {
+            userId = b.getString("userID");
+            automatId = b.getString("automatID");
+            balance = b.getDouble("balance");
+
+        }
+
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ScanBarcodeActivity.class));
+                Intent intent = new Intent(ScanBarcode.this, ScanBarcodeActivity.class);
+                Bundle bu = new Bundle();
+                bu.putString("userID",userId); //Your id
+                bu.putString("automatID",automatId);
+                bu.putDouble("balance",balance);
+                // balance da eklencek
+                intent.putExtras(bu);
+                startActivity(intent);
             }
         });
     }
