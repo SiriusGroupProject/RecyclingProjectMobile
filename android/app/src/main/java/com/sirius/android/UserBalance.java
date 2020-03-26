@@ -15,8 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class UserBalance extends AppCompatActivity {
 
-    private String finalBalance;
-    private Button donationButton;
     private Button totalBalanceButton;
     private TextView balanceText;
 
@@ -39,7 +37,6 @@ public class UserBalance extends AppCompatActivity {
 
     private void bindViews() {
 
-        donationButton = (Button) findViewById(R.id.donation);
         totalBalanceButton = (Button) findViewById(R.id.balanceAdd);
         // intentle total balance verisi alınacak
         balanceText = (TextView) findViewById(R.id.balance);
@@ -54,24 +51,21 @@ public class UserBalance extends AppCompatActivity {
             startActivity(profile);
             return true;
         }
-        // logout
-
+        else if(id == R.id.action_logout){
+            Intent profile = new Intent(this, Login.class);
+            startActivity(profile);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void sendAndRequestResponse() {
 
-        donationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // eklenen tasarıma göre yazılacak
-            }
-        });
-
         totalBalanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // total balance a eklenecek
+                Intent intent = new Intent(UserBalance.this, UserProfile.class);
+                startActivity(intent);
             }
         });
     }
