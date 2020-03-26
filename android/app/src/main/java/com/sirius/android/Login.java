@@ -2,6 +2,7 @@ package com.sirius.android;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = "http://192.168.1.6:8080/rest/users/login";
+    private String url = "http://192.168.2.242:8080/rest/users/login";
     private Button loginButton;
     private EditText nameText, passwordText;
     private TextView createAccountLink;
@@ -49,12 +51,33 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        }
         mlocListener = new MyLocationListener();
         onRequestPermissionsResult();
         setContentView(R.layout.login);
         bindViews();
         setListeners();
 
+    }
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
