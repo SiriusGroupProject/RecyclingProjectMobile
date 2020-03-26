@@ -39,7 +39,6 @@
         <activity android:name=".ScanBarcode"></activity>
         <activity android:name=".BottleVerified"></activity>
         <activity android:name=".BottleNotVerified"></activity>
-        <activity android:name=".CloseDoor"></activity>
         <activity android:name=".WaitingScreenQR"></activity>
         <activity android:name=".WaitingScreenBarcode"></activity>
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.

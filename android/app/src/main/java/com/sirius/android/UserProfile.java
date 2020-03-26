@@ -64,7 +64,7 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void bindViews() {
-        mail = "eyuksek@etu.edu.tr";
+        mail = getIntent().getExtras().getString("mail");
         edit = (Button) findViewById(R.id.settings);
         mailText = (TextView)findViewById(R.id.mail);
         mailText.setText(mail);//getIntent().getExtras().getString("mail")

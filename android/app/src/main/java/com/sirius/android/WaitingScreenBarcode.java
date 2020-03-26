@@ -23,8 +23,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String postUrl = "http://10.0.2.2:8080/connections/forwardScannedBarcode/";
-    private String getUrl = "http://10.0.2.2:8080/connections/getBottleVerification/";
+    private String postUrl = "http://192.168.1.4:8080/connections/forwardScannedBarcode/";
+    private String getUrl = "http://192.168.1.4:8080/connections/getBottleVerification/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postBarcode;
