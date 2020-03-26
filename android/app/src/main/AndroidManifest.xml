@@ -41,6 +41,10 @@
         <activity android:name=".BottleNotVerified"></activity>
         <activity android:name=".WaitingScreenQR"></activity>
         <activity android:name=".WaitingScreenBarcode"></activity>
+        <activity android:name=".DonationPopUp"
+            android:theme="@style/AppTheme.CustomTheme"
+            ></activity>
+
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
         See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data

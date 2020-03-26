@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = "http://192.168.2.242:8080/rest/users/login";
+    private String url = "http://192.168.1.6:8080/rest/users/login";
     private Button loginButton;
     private EditText nameText, passwordText;
     private TextView createAccountLink;

@@ -11,4 +11,9 @@
         <item name="colorAccent">@color/toolBarColor</item> <!-- Whatever color you want-->
     </style>
 
+    <style name="AppTheme.CustomTheme" >
+        <item name="android:windowIsTranslucent" >true</item>
+        <item name="android:windowCloseOnTouchOutside" >true</item>
+    </style>
+
 </resources>
