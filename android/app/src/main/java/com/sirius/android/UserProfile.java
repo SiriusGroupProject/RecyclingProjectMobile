@@ -95,6 +95,10 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfile.this, DonationPopUp.class);
+                Bundle b = new Bundle();
+                b.putString("userID",mail); //Your id
+                b.putDouble("balance",balance);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });
