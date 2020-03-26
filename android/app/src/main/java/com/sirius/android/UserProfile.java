@@ -29,11 +29,12 @@ public class UserProfile extends AppCompatActivity {
     private String name;
     private double balance;
     private String balanceFinal;
-    private String url = "http://10.2.37.16:8080/rest/users/listUsers";
+    private String url = "http://192.168.1.6:8080/rest/users/listUsers";
     private TextView mailText;
     private TextView nameText;
     private TextView balanceText;
     private Button edit;
+    private Button donation;
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
 
@@ -58,14 +59,18 @@ public class UserProfile extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.action_logout) {
-            // logout
+            Intent profile = new Intent(this, Login.class);
+            startActivity(profile);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void bindViews() {
+
         mail = getIntent().getExtras().getString("mail");
         edit = (Button) findViewById(R.id.settings);
+        donation = (Button) findViewById(R.id.donation);
         mailText = (TextView)findViewById(R.id.mail);
         mailText.setText(mail);//getIntent().getExtras().getString("mail")
         //mail = mailText.toString();
@@ -86,6 +91,14 @@ public class UserProfile extends AppCompatActivity {
                 startActivity(intentTransfer);
             }
         });
+        donation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfile.this, DonationPopUp.class);
+                startActivity(intent);
+            }
+        });
+
 
         mRequestQueue = Volley.newRequestQueue(this);
 

@@ -29,7 +29,7 @@
     <string name="newPasswordButton">Şifreyi Değiştir</string>
     <string name="error">Bir sorun oluştu. Daha sonra tekrar deneyiniz.</string>
     <string name="add">Bakiyeye Ekle</string>
-    <string name="donation">Bağış Yap</string>
+    <string name="donation">Bağış</string>
     <string name="coin" />
     <string name="default_notification_channel_id">s2</string>
     <string name="bottle_verified_info">Şişeniz doğrulanmıştır. Lütfen otomat ekranından hangi işlem ile devam edeceğinizi seçiniz.</string>
@@ -42,6 +42,7 @@
     <string name="waiting_text2">Lütfen otomat ekranındaki talimatlara uyunuz...</string>
     <string name="waiting_text3">Lütfen bekleyiniz...</string>
     <string name="profile">Toplam Bakiye</string>
-
+    <string name="donationMoney">Bağış Yapılacak Tutar</string>
+    <string name="a" />
 
 </resources>

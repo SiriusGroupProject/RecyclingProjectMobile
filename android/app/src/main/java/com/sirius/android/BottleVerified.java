@@ -35,8 +35,8 @@ public class BottleVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://192.168.1.4:8080/connections/getResult/";
-    private String bottleInfoUrl = "http://192.168.1.4:8080/rest/bottles/";
+    private String getUrl = "http://192.168.1.6:8080/connections/getResult/";
+    private String bottleInfoUrl = "http://192.168.1.6:8080/rest/bottles/";
     private Handler customHandler;
     private StringRequest closeOrNew;
     private JsonObjectRequest bottlePrice;
