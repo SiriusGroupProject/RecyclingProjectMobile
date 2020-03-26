@@ -3,10 +3,9 @@ package com.sirius.android;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
 
-import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Build;
@@ -96,25 +95,19 @@ public class ScanCodeActivity extends AppCompatActivity implements ZXingScannerV
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tarama Sonuçları");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ScannerView.resumeCameraPreview(ScanCodeActivity.this);
-            }
-        });
-        builder.setNeutralButton("Bağlan", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) { //deliver the code of the automat to the server and connect with it
-                ScannerView.resumeCameraPreview(ScanCodeActivity.this); // delete
+        //ScannerView.stopCamera();
 
-            }
-        });
+        Bundle b = getIntent().getExtras();
+        String userId = ""; // or other values
+        if(b != null)
+            userId = b.getString("userID");
+        Intent intent = new Intent(ScanCodeActivity.this, WaitingScreenQR.class);
+        Bundle bu = new Bundle();
+        bu.putString("userID",userId); //Your id
+        bu.putString("automatID",result.getText());
+        intent.putExtras(bu);
+        startActivity(intent);
 
-        builder.setMessage(result.getText()); // RESULT text
-        AlertDialog alert1 = builder.create();
-        alert1.show();
     }
 
     @Override

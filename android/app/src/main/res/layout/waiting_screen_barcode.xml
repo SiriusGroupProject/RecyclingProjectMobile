@@ -35,7 +35,7 @@
         app:layout_constraintGuide_percent="0.96" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/bottleInfoToolbar"
+        android:id="@+id/waitingScreenToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolBarColor"
@@ -49,30 +49,33 @@
         app:title=" "
         app:titleTextColor="#FFFFFF" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="166dp"
-        android:layout_marginTop="88dp"
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="148dp"
         android:layout_marginEnd="72dp"
         android:gravity="center"
-        android:textAlignment="center"
+        android:progressDrawable="@drawable/circular_process_bar"
+        android:theme="@style/AppTheme.WhiteAccent"
         app:layout_constraintEnd_toStartOf="@+id/end"
-        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toStartOf="@+id/startOfFields"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/standing_bottle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="370dp"
-        android:layout_height="122dp"
+        android:id="@+id/textView"
+        android:layout_width="294dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/bottleinfo"
+        android:text="@string/waiting_text"
         android:textAllCaps="false"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,16 +86,24 @@
 
         />
 
-    <Button
-        android:id="@+id/btnScanQR"
-        android:layout_width="161dp"
-        android:layout_height="76dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/rounded_corner_button"
-        android:text="@string/bottleinfo_button"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="294dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/waiting_text3"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/end"
-        app:layout_constraintStart_toStartOf="@+id/startOfFields"
-        app:layout_constraintTop_toTopOf="@+id/topOfValues" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.564"
+
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
