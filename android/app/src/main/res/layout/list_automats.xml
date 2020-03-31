@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_end="73dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start"
@@ -53,10 +53,24 @@
 
     <de.codecrafters.tableview.TableView
         android:id="@+id/tableView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="395dp"
         android:layout_marginTop="57dp"
         app:layout_constraintEnd_toStartOf="@+id/end"
         app:layout_constraintStart_toStartOf="@+id/startOfFields"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </de.codecrafters.tableview.TableView>
+
+    <ImageView
+        android:id="@+id/addButton"
+        android:layout_width="55dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="28dp"
+        android:contentDescription="@string/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableView"
+        app:srcCompat="@drawable/add" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

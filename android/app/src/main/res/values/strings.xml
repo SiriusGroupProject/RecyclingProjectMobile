@@ -44,5 +44,6 @@
     <string name="profile">Toplam Bakiye</string>
     <string name="donationMoney">Bağış Yapılacak Tutar</string>
     <string name="a" />
+    <string name="addButton">add</string>
 
 </resources>

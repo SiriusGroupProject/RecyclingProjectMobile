@@ -1,9 +1,13 @@
 package com.sirius.android;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.widget.Toast;
@@ -50,6 +54,7 @@ public class ListAutomats extends AppCompatActivity{
             userId = b.getString("userID");
 
         final TableView<String[]> tableView = (TableView<String[]>) findViewById(R.id.tableView);
+        final ImageView addButton = (ImageView) findViewById(R.id.addButton);
 
         tableView.setHeaderBackgroundColor(Color.parseColor("#28c678"));
         tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(this,tableHeaders));
@@ -89,11 +94,9 @@ public class ListAutomats extends AppCompatActivity{
 
         mRequestQueue.add(mArrayRequest);
 
-
-        tableView.addDataClickListener(new TableDataClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataClicked(int rowIndex, Object clickedData) {
-                Toast.makeText(ListAutomats.this, ((String[])clickedData)[1], Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
                 Intent intent = new Intent(ListAutomats.this, ScanQRAutomat.class);
                 Bundle b = new Bundle();
                 b.putString("userID",userId); //Your id
@@ -101,8 +104,6 @@ public class ListAutomats extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-
-
 
     }
 
