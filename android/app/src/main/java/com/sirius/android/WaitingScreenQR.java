@@ -33,6 +33,8 @@ public class WaitingScreenQR extends AppCompatActivity {
     private RequestQueue queue;
     private StringRequest postQRCode;
     private StringRequest isConnected;
+    private int counter;
+    private boolean stop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +107,7 @@ public class WaitingScreenQR extends AppCompatActivity {
         });// Adding request to request queue
         Volley.newRequestQueue(WaitingScreenQR.this).add(postQRCode);
 
-        customHandler.postDelayed(updateTimerThread, 1000);
+        customHandler.postDelayed(updateTimerThread, 500);
 
 
     }
@@ -116,6 +118,9 @@ public class WaitingScreenQR extends AppCompatActivity {
         public void run()
         {
 
+            counter = 0;
+            stop = false;
+            while (counter < 10) {
             // prepare the Request
             isConnected = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                 @Override
@@ -151,8 +156,16 @@ public class WaitingScreenQR extends AppCompatActivity {
             // add it to the RequestQueue
             Volley.newRequestQueue(WaitingScreenQR.this).add(isConnected);
             //write here whaterver you want to repeat
-            if(!stop)
-                customHandler.postDelayed(this, 2000);
+                if(stop){
+                    break;
+                }
+                counter++;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     };
 

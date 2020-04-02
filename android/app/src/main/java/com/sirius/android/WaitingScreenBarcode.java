@@ -29,6 +29,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private RequestQueue queue;
     private StringRequest postBarcode;
     private StringRequest isVerified;
+    private int counter;
+    private boolean stop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,9 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         public void run()
         {
 
+            counter = 0;
+            stop = false;
+            while (counter < 30) {
             // prepare the Request
             isVerified = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                 @Override
@@ -144,10 +149,20 @@ public class WaitingScreenBarcode extends AppCompatActivity {
                 }
             });
 
+
+
             // add it to the RequestQueue
             Volley.newRequestQueue(WaitingScreenBarcode.this).add(isVerified);
-            if(!stop)
-                customHandler.postDelayed(this, 2000);
+                if(stop){
+                    break;
+                }
+            counter++;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         }
     };
 

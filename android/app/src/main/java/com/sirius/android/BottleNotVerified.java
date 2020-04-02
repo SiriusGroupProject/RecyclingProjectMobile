@@ -29,6 +29,8 @@ public class BottleNotVerified extends AppCompatActivity {
     private String getUrl = "http://192.168.1.6:8080/connections/getResult/";
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
+    private int counter;
+    private boolean stop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +56,11 @@ public class BottleNotVerified extends AppCompatActivity {
             System.out.println(balance);
         }
 
-        getUrl = getUrl + userId + "/" + automatId + "/" + barcode;
+        getUrl = getUrl + userId + "/" + automatId + "/" + barcode + "/0";
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 1000);
+        customHandler.postDelayed(updateTimerThread, 500);
 
 
     }
@@ -68,7 +70,9 @@ public class BottleNotVerified extends AppCompatActivity {
         boolean stop = false;
         public void run()
         {
-
+            counter = 0;
+            stop = false;
+            while (counter < 15) {
             // prepare the Request
             closeOrNewOrRepeat = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                 @Override
@@ -128,10 +132,19 @@ public class BottleNotVerified extends AppCompatActivity {
                 }
             });
 
+
             // add it to the RequestQueue
             Volley.newRequestQueue(BottleNotVerified.this).add(closeOrNewOrRepeat);
-            if(!stop)
-                customHandler.postDelayed(this, 2000);
+                if(stop){
+                    break;
+                }
+            counter++;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         }
     };
 
