@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,6 +21,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WaitingScreenQR extends AppCompatActivity {
     private ProgressBar pgsBar;
@@ -34,7 +38,8 @@ public class WaitingScreenQR extends AppCompatActivity {
     private StringRequest postQRCode;
     private StringRequest isConnected;
     private int counter;
-    private boolean stop;
+    private boolean stop = false;
+    private String responseS = "f";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +89,6 @@ public class WaitingScreenQR extends AppCompatActivity {
                     }
                 }
         );
-
         Volley.newRequestQueue(WaitingScreenQR.this).add(getBalance);
 
         postQRCode = new StringRequest(Request.Method.POST, postUrl, new Response.Listener<String>() {
@@ -107,65 +111,85 @@ public class WaitingScreenQR extends AppCompatActivity {
         });// Adding request to request queue
         Volley.newRequestQueue(WaitingScreenQR.this).add(postQRCode);
 
-        customHandler.postDelayed(updateTimerThread, 500);
+        customHandler.postDelayed(updateTimerThread, 3000);
 
 
     }
     private Runnable updateTimerThread = new Runnable()
     {
 
-        boolean stop = false;
         public void run()
         {
 
-            counter = 0;
-            stop = false;
-            while (counter < 10) {
-            // prepare the Request
-            isConnected = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        Log.d(response,response);
-                        if(response.equals("true")){
-                            stop = true;
-                            Intent intent = new Intent(WaitingScreenQR.this, ScanBarcode.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance); // kullanıcının bilgisi çekilecek ????**1*1*1*
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
+
+            try {
+                Thread.sleep(5000);
+                counter = 0;
+                while (counter < 3) {
+                    isConnected = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                Log.d(response,response);
+                                if(response.equals("true")){
+                                    stop = true;
+                                    responseS = "t";
+                                    Intent intent = new Intent(WaitingScreenQR.this, ScanBarcode.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID",userId); //Your id
+                                    bu.putString("automatID",automatId);
+                                    bu.putDouble("balance",balance); // kullanıcının bilgisi çekilecek ????*1*1*1
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+
+
+                                }
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("Error getrequest");
+                            stop = true;
+                        }
+                    });
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("Error getrequest");
-                    stop = true;
-                }
-            });
-
-            // add it to the RequestQueue
-            Volley.newRequestQueue(WaitingScreenQR.this).add(isConnected);
-            //write here whaterver you want to repeat
-                if(stop){
-                    break;
-                }
-                counter++;
-                try {
+                    // add it to the RequestQueue
+                    Volley.newRequestQueue(WaitingScreenQR.this).add(isConnected);
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //write here whaterver you want to repeat
+
+                    counter++;
+
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(responseS.equals("t")){
+                Intent intent = new Intent(WaitingScreenQR.this, ScanBarcode.class);
+                Bundle bu = new Bundle();
+                bu.putString("userID",userId); //Your id
+                bu.putString("automatID",automatId);
+                bu.putDouble("balance",balance); // kullanıcının bilgisi çekilecek ????*1*1*1
+                // balance da eklencek
+                intent.putExtras(bu);
+                startActivity(intent);
+            }
+
+
         }
     };
 

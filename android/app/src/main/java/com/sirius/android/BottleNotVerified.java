@@ -30,7 +30,7 @@ public class BottleNotVerified extends AppCompatActivity {
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
     private int counter;
-    private boolean stop;
+    private boolean stop = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,86 +67,90 @@ public class BottleNotVerified extends AppCompatActivity {
     private Runnable updateTimerThread = new Runnable()
     {
 
-        boolean stop = false;
-        public void run()
-        {
-            counter = 0;
-            stop = false;
-            while (counter < 15) {
-            // prepare the Request
-            closeOrNewOrRepeat = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        Log.d(response,response);
-                        System.out.println(response);
-                        if(response.equals("3")){ // AYNI ŞİŞEYLE DEVAM
-                            stop = true;
-                            Intent intent = new Intent(BottleNotVerified.this, WaitingScreenBarcode.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance);
-                            bu.putString("barcode",barcode);
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
-                        }
-                        else if(response.equals("2")){ // DAHA SEÇİM YAPILMADI
-                            stop = false;
-                        }
-                        else if(response.equals("1")){ // YENİ İŞLEM YAPILACAK
-                            stop = true;
-                            Intent intent = new Intent(BottleNotVerified.this, ScanBarcode.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance);
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
-                        }
-                        else if(response.equals("0")){ // BALANCE EKRARNINA GEC
-                            stop = true;
-                            Intent intent = new Intent(BottleNotVerified.this, UserBalance.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance);
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
-                        }
+        public void run() {
+            try {
+                Thread.sleep(5000);
+                counter = 0;
+                while (counter < 20) {
+                    // prepare the Request
+                    closeOrNewOrRepeat = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                Log.d(response, response);
+                                System.out.println(response);
+                                if (response.equals("3")) { // AYNI ŞİŞEYLE DEVAM
+                                    stop = true;
+                                    Intent intent = new Intent(BottleNotVerified.this, WaitingScreenBarcode.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance);
+                                    bu.putString("barcode", barcode);
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                } else if (response.equals("2")) { // DAHA SEÇİM YAPILMADI
+                                    stop = false;
+                                } else if (response.equals("1")) { // YENİ İŞLEM YAPILACAK
+                                    stop = true;
+                                    Intent intent = new Intent(BottleNotVerified.this, ScanBarcode.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance);
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                } else if (response.equals("0")) { // BALANCE EKRARNINA GEC
+                                    stop = true;
+                                    Intent intent = new Intent(BottleNotVerified.this, UserBalance.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance);
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                }
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("Error getrequest");
+                            stop = true;
+                        }
+                    });
+
+
+                    // add it to the RequestQueue
+                    Volley.newRequestQueue(BottleNotVerified.this).add(closeOrNewOrRepeat);
+                    Thread.sleep(1000);
+                    //write here whaterver you want to repeat
+
+                    counter++;
 
 
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("Error getrequest");
-                    stop = true;
-                }
-            });
-
-
-            // add it to the RequestQueue
-            Volley.newRequestQueue(BottleNotVerified.this).add(closeOrNewOrRepeat);
-                if(stop){
-                    break;
-                }
-            counter++;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        }
-    };
+        };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
