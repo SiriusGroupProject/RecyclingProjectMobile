@@ -29,6 +29,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private RequestQueue queue;
     private StringRequest postBarcode;
     private StringRequest isVerified;
+    private int counter;
+    private boolean stop = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,72 +85,86 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         });// Adding request to request queue
         Volley.newRequestQueue(WaitingScreenBarcode.this).add(postBarcode);
 
-        customHandler.postDelayed(updateTimerThread, 1000);
+        customHandler.postDelayed(updateTimerThread, 3000);
 
 
     }
-    private Runnable updateTimerThread = new Runnable()
-    {
+    private Runnable updateTimerThread = new Runnable() {
 
-        boolean stop = false;
-        public void run()
-        {
+        public void run() {
+            try {
+                Thread.sleep(3000);
 
-            // prepare the Request
-            isVerified = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        Log.d(response,response);
-                        System.out.println(response);
-                        if(response.equals("2")){
-                            stop = false;
+                counter = 0;
+                while (counter < 20) {
+                    // prepare the Request
+                    isVerified = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                Log.d(response, response);
+                                System.out.println(response);
+                                if (response.equals("2")) {
+                                    stop = false;
+
+                                } else if (response.equals("1")) { // VERIFIED
+                                    stop = true;
+                                    Intent intent = new Intent(WaitingScreenBarcode.this, BottleVerified.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance);
+                                    bu.putString("barcode", barcode);
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                } else if (response.equals("0")) { // NOT VERIFIED
+                                    stop = true;
+                                    Intent intent = new Intent(WaitingScreenBarcode.this, BottleNotVerified.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance);
+                                    bu.putString("barcode", barcode);
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
 
                         }
-                        else if(response.equals("1")){ // VERIFIED
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("Error getrequest");
                             stop = true;
-                            Intent intent = new Intent(WaitingScreenBarcode.this, BottleVerified.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance);
-                            bu.putString("barcode",barcode);
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
                         }
-                        else if(response.equals("0")){ // NOT VERIFIED
-                            stop = true;
-                            Intent intent = new Intent(WaitingScreenBarcode.this, BottleNotVerified.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance);
-                            bu.putString("barcode",barcode);
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
-                        }
+                    });
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
+                    // add it to the RequestQueue
+                    Volley.newRequestQueue(WaitingScreenBarcode.this).add(isVerified);
+                    Thread.sleep(1000);
+
+                    counter++;
 
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("Error getrequest");
-                    stop = true;
-                }
-            });
-
-            // add it to the RequestQueue
-            Volley.newRequestQueue(WaitingScreenBarcode.this).add(isVerified);
-            if(!stop)
-                customHandler.postDelayed(this, 2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
     };
 
     @Override

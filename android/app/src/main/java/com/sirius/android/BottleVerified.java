@@ -42,6 +42,8 @@ public class BottleVerified extends AppCompatActivity {
     private JsonObjectRequest bottlePrice;
     private TextView balanceText;
     private double addToBalance;
+    private int counter;
+    private boolean stop = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class BottleVerified extends AppCompatActivity {
             System.out.println(balance);
         }
 
-        getUrl = getUrl + userId + "/" + automatId + "/" + barcode;
+        getUrl = getUrl + userId + "/" + automatId + "/" + barcode + "/1";
         bottleInfoUrl = bottleInfoUrl + barcode;
 
 
@@ -100,70 +102,83 @@ public class BottleVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 1000);
+        customHandler.postDelayed(updateTimerThread, 500);
 
 
     }
     private Runnable updateTimerThread = new Runnable()
     {
 
-        boolean stop = false;
-        public void run()
-        {
+        public void run() {
+            try {
+                Thread.sleep(5000);
+                counter = 0;
+                while (counter < 10) {
+                    // prepare the Request
+                    closeOrNew = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                Log.d(response, response);
+                                System.out.println(response);
+                                if (response.equals("2")) { // DAHA CEVAP GELMEDİ
+                                    stop = false;
+                                } else if (response.equals("1")) { // YENİ İŞLEM YAPILACAK
+                                    stop = true;
+                                    Intent intent = new Intent(BottleVerified.this, ScanBarcode.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance + addToBalance); // balance a ekle
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                } else if (response.equals("0")) { // BALANCE EKRANINA GEC
+                                    stop = true;
+                                    Intent intent = new Intent(BottleVerified.this, UserBalance.class);
+                                    Bundle bu = new Bundle();
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance + addToBalance);
+                                    // balance da eklencek
+                                    intent.putExtras(bu);
+                                    finish();
+                                    startActivity(intent);
+                                }
 
-            // prepare the Request
-            closeOrNew = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        Log.d(response,response);
-                        System.out.println(response);
-                        if(response.equals("2")){ // DAHA CEVAP GELMEDİ
-                            stop = false;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
-                        else if(response.equals("1")){ // YENİ İŞLEM YAPILACAK
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("Error getrequest");
                             stop = true;
-                            Intent intent = new Intent(BottleVerified.this, ScanBarcode.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance + addToBalance); // balance a ekle
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
                         }
-                        else if(response.equals("0")){ // BALANCE EKRANINA GEC
-                            stop = true;
-                            Intent intent = new Intent(BottleVerified.this, UserBalance.class);
-                            Bundle bu = new Bundle();
-                            bu.putString("userID",userId); //Your id
-                            bu.putString("automatID",automatId);
-                            bu.putDouble("balance",balance + addToBalance);
-                            // balance da eklencek
-                            intent.putExtras(bu);
-                            startActivity(intent);
-                        }
+                    });
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    // add it to the RequestQueue
+                    Volley.newRequestQueue(BottleVerified.this).add(closeOrNew);
+                    Thread.sleep(1000);
+                    //write here whaterver you want to repeat
 
+                    counter++;
 
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("Error getrequest");
-                    stop = true;
-                }
-            });
-
-            // add it to the RequestQueue
-            Volley.newRequestQueue(BottleVerified.this).add(closeOrNew);
-            if(!stop)
-                customHandler.postDelayed(this, 2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-    };
+        };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
