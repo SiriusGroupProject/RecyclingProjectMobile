@@ -60,7 +60,7 @@ public class BottleNotVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 500);
+        customHandler.postDelayed(updateTimerThread, 5000);
 
 
     }
@@ -69,7 +69,6 @@ public class BottleNotVerified extends AppCompatActivity {
 
         public void run() {
             try {
-                Thread.sleep(5000);
                 counter = 0;
                 while (counter < 20) {
                     // prepare the Request

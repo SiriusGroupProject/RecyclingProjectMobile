@@ -93,7 +93,6 @@ public class WaitingScreenBarcode extends AppCompatActivity {
 
         public void run() {
             try {
-                Thread.sleep(3000);
 
                 counter = 0;
                 while (counter < 20) {
