@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="73dp" />
+        app:layout_constraintGuide_percent="0.9015048" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start"
@@ -51,26 +51,25 @@
         app:title=" "
         app:titleTextColor="#FFFFFF" />
 
-    <de.codecrafters.tableview.TableView
-        android:id="@+id/tableView"
-        android:layout_width="385dp"
-        android:layout_height="395dp"
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="57dp"
         app:layout_constraintEnd_toStartOf="@+id/end"
         app:layout_constraintStart_toStartOf="@+id/startOfFields"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </de.codecrafters.tableview.TableView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/addButton"
         android:layout_width="55dp"
         android:layout_height="61dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="710dp"
+        android:layout_marginEnd="345dp"
         android:contentDescription="@string/addButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableView"
-        app:srcCompat="@drawable/add" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/add_64" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
