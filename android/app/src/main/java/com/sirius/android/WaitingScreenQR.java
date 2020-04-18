@@ -30,9 +30,9 @@ public class WaitingScreenQR extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String postUrl = "http://192.168.1.6:8080/connections/connection/";
-    private String getUrl = "http://192.168.1.6:8080/connections/waitingForConnection/";
-    private String getUserBalance = "http://192.168.1.6:8080/rest/users/";
+    private String postUrl = "http://recyclingprojectsirius.herokuapp.com/connections/connection/";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/waitingForConnection/";
+    private String getUserBalance = "http://recyclingprojectsirius.herokuapp.com/rest/users/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postQRCode;

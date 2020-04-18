@@ -80,10 +80,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import de.codecrafters.tableview.TableView;
-import de.codecrafters.tableview.listeners.TableDataClickListener;
-import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
-import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 public class ListAutomats extends AppCompatActivity implements
         OnMarkerClickListener,
@@ -114,7 +110,7 @@ public class ListAutomats extends AppCompatActivity implements
     //private static final LatLng KUCUKESAT = new LatLng(39.90989685058594, 32.867218017578125);
 
     //DATABASE'TEN CEKILDIGI ZAMAN
-    // private String getUrl = "http://192.168.1.6:8080/rest/automats/listAutomats";
+    // private String getUrl = "http://recyclingprojectsirius.herokuapp.com/rest/automats/listAutomats";
     private static RequestQueue mRequestQueue;
     private static String mStringRequest;
     private static String userId;
