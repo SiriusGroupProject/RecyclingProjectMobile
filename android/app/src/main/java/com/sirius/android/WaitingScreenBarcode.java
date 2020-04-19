@@ -85,7 +85,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         });// Adding request to request queue
         Volley.newRequestQueue(WaitingScreenBarcode.this).add(postBarcode);
 
-        customHandler.postDelayed(updateTimerThread, 3000);
+        customHandler.postDelayed(updateTimerThread, 15000);
 
 
     }

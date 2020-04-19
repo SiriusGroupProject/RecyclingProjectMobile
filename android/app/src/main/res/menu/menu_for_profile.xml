@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_profile"
-        android:title="Profil"
+        android:title="Otomatlar"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

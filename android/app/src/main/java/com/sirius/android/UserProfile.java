@@ -63,7 +63,13 @@ public class UserProfile extends AppCompatActivity {
             startActivity(profile);
             return true;
         }
+        else if(id == R.id.action_profile){
+            Intent profile = new Intent(this, ListAutomats.class);
+            startActivity(profile);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+
     }
 
     private void bindViews() {
