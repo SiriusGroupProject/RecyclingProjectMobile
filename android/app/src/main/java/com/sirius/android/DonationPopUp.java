@@ -22,7 +22,7 @@ public class DonationPopUp extends Activity {
     private String array_spinner[];
     private Button dismiss;
     private Button donationButton;
-    private String putUrl = "http://192.168.1.6:8080/rest/users/updateBalance/";
+    private String putUrl = "http://198.168.1.2/rest/users/updateBalance/";
     private String userId;
     private double balance;
 

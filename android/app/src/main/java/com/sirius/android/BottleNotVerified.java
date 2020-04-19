@@ -26,7 +26,7 @@ public class BottleNotVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://192.168.1.6:8080/connections/getResult/";
+    private String getUrl = "http://198.168.1.2/connections/getResult/";
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
     private int counter;
@@ -60,7 +60,7 @@ public class BottleNotVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 500);
+        customHandler.postDelayed(updateTimerThread, 5000);
 
 
     }
@@ -69,7 +69,6 @@ public class BottleNotVerified extends AppCompatActivity {
 
         public void run() {
             try {
-                Thread.sleep(5000);
                 counter = 0;
                 while (counter < 20) {
                     // prepare the Request

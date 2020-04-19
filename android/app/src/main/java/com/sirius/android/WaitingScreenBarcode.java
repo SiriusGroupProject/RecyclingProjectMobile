@@ -23,8 +23,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String postUrl = "http://192.168.1.6:8080/connections/forwardScannedBarcode/";
-    private String getUrl = "http://192.168.1.6:8080/connections/getBottleVerification/";
+    private String postUrl = "http://198.168.1.2/connections/forwardScannedBarcode/";
+    private String getUrl = "http://198.168.1.2/connections/getBottleVerification/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postBarcode;
@@ -93,7 +93,6 @@ public class WaitingScreenBarcode extends AppCompatActivity {
 
         public void run() {
             try {
-                Thread.sleep(3000);
 
                 counter = 0;
                 while (counter < 20) {

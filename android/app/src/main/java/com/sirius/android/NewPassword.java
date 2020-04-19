@@ -40,8 +40,8 @@ public class NewPassword extends AppCompatActivity {
     private EditText passwordText;
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    private String urlUpdate = "http://192.168.1.6:8080/rest/users/updateUser";
-    private String urlGetUser = "http://192.168.1.6:8080/rest/users/";
+    private String urlUpdate = "http://198.168.1.2/rest/users/updateUser";
+    private String urlGetUser = "http://198.168.1.2/rest/users/";
     private String email;
     private String name;
     private String surname;

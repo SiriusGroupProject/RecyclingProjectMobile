@@ -35,8 +35,8 @@ public class BottleVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://192.168.1.6:8080/connections/getResult/";
-    private String bottleInfoUrl = "http://192.168.1.6:8080/rest/bottles/";
+    private String getUrl = "http://198.168.1.2/connections/getResult/";
+    private String bottleInfoUrl = "http://198.168.1.2/rest/bottles/";
     private Handler customHandler;
     private StringRequest closeOrNew;
     private JsonObjectRequest bottlePrice;
@@ -102,7 +102,7 @@ public class BottleVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 500);
+        customHandler.postDelayed(updateTimerThread, 5000);
 
 
     }
@@ -111,7 +111,6 @@ public class BottleVerified extends AppCompatActivity {
 
         public void run() {
             try {
-                Thread.sleep(5000);
                 counter = 0;
                 while (counter < 10) {
                     // prepare the Request

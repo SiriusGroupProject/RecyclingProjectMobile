@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android</string>
+    <string name="app_name">Sirius</string>
     <string name="total_balance">İşleme Ait Bakiye:</string>
     <string name="space"></string>
     <string name="profil">Profil</string>
@@ -45,5 +45,10 @@
     <string name="donationMoney">Bağış Yapılacak Tutar</string>
     <string name="a" />
     <string name="addButton">add</string>
+    <string name="map_not_ready">Harita hazırlanamadı.Bekleyiniz...</string>
+    <string name="info_window_click">Bağlantı kurmak için lütfen ekranın sol alt köşesindeki tuşa basınız.</string>
+    <string name="location_permission_denied">Konum erişme isteği reddedildi.</string>
+    <string name="permission_required_toast">İsteğin kabul edilmesi zorunludur.</string>
+    <string name="permission_rationale_location">Konum gösterilebilmesi için izin verilmesi zorunludur.</string>
 
 </resources>
