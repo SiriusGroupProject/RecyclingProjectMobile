@@ -28,8 +28,8 @@ public class UserBalance extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String getUrl = "http://198.168.1.2/rest/users/";
-    private String putUrl = "http://198.168.1.2/rest/users/updateBalance/";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/rest/users/";
+    private String putUrl = "http://recyclingprojectsirius.herokuapp.com/rest/users/updateBalance/";
     private double userOldBalance;
     private double earnedBalance;
     private Button totalBalanceButton;

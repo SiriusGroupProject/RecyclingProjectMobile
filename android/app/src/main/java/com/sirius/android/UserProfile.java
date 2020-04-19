@@ -29,7 +29,7 @@ public class UserProfile extends AppCompatActivity {
     private String name;
     private double balance;
     private String balanceFinal;
-    private String url = "http://198.168.1.2/rest/users/listUsers";
+    private String url = "http://recyclingprojectsirius.herokuapp.com/rest/users/listUsers";
     private TextView mailText;
     private TextView nameText;
     private TextView balanceText;

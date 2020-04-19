@@ -26,7 +26,7 @@ public class BottleNotVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://198.168.1.2/connections/getResult/";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/getResult/";
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
     private int counter;

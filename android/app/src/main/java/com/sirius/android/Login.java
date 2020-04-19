@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = "http://198.168.1.2/rest/users/login";
+    private String url = "http://recyclingprojectsirius.herokuapp.com/rest/users/login";
     private Button loginButton;
     private EditText nameText, passwordText;
     private TextView createAccountLink;
