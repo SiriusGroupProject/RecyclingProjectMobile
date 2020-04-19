@@ -28,8 +28,8 @@ public class UserBalance extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String getUrl = "http://198.168.1.2/rest/users/";
-    private String putUrl = "http://198.168.1.2/rest/users/updateBalance/";
+    private String getUrl = "http://192.168.2.242:8080/rest/users/";
+    private String putUrl = "http://192.168.2.242:8080/rest/users/updateBalance/";
     private double userOldBalance;
     private double earnedBalance;
     private Button totalBalanceButton;
@@ -68,7 +68,13 @@ public class UserBalance extends AppCompatActivity {
                         try {
                             userOldBalance = response.getDouble("balance");
                             earnedBalance = balance - userOldBalance;
-                            balanceText.setText(Double.toString(earnedBalance));
+                            double bakiye = earnedBalance;
+                            bakiye = bakiye*100;
+                            int bakiye2 = (int)Math.round(bakiye);
+                            String left = "" + bakiye2/100;
+                            String right = "" + bakiye2%100;
+                            String bakiyeSon = left + "." + right;
+                            balanceText.setText(bakiyeSon);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

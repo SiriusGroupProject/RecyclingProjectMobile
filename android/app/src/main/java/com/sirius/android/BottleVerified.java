@@ -35,8 +35,8 @@ public class BottleVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://198.168.1.2/connections/getResult/";
-    private String bottleInfoUrl = "http://198.168.1.2/rest/bottles/";
+    private String getUrl = "http://192.168.2.242:8080/connections/getResult/";
+    private String bottleInfoUrl = "http://192.168.2.242:8080/rest/bottles/";
     private Handler customHandler;
     private StringRequest closeOrNew;
     private JsonObjectRequest bottlePrice;
@@ -182,7 +182,7 @@ public class BottleVerified extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_bos, menu);
         return true;
     }
 }

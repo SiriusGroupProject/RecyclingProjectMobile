@@ -29,7 +29,7 @@ public class UserProfile extends AppCompatActivity {
     private String name;
     private double balance;
     private String balanceFinal;
-    private String url = "http://198.168.1.2/rest/users/listUsers";
+    private String url = "http://192.168.2.242:8080/rest/users/listUsers";
     private TextView mailText;
     private TextView nameText;
     private TextView balanceText;
@@ -63,6 +63,11 @@ public class UserProfile extends AppCompatActivity {
             startActivity(profile);
             return true;
         }
+        else if(id == R.id.action_profile){
+            Intent profile = new Intent(this, ListAutomats.class);
+            startActivity(profile);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,7 +92,7 @@ public class UserProfile extends AppCompatActivity {
                 Intent intent = new Intent(UserProfile.this, NewPassword.class);
                 startActivity(intent);
                 Intent intentTransfer = new Intent(UserProfile.this, NewPassword.class);
-                intentTransfer.putExtra("mail", mail);
+                intentTransfer.putExtra("mail", getIntent().getExtras().getString("mail"));
                 startActivity(intentTransfer);
             }
         });
@@ -121,7 +126,13 @@ public class UserProfile extends AppCompatActivity {
                             name = username+ " "+usersurname;
                             name = name.toUpperCase();
                             balance = user.getDouble("balance");
-                            balanceFinal = Double.toString(balance);
+                            double bakiye = balance;
+                            bakiye = bakiye*100;
+                            int bakiye2 = (int)Math.round(bakiye);
+                            String left = "" + bakiye2/100;
+                            String right = "" + bakiye2%100;
+                            String bakiyeSon = left + "." + right;
+                            balanceFinal = bakiyeSon;
                         }
                     }
                 } catch (Exception e) {

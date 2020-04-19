@@ -30,9 +30,9 @@ public class WaitingScreenQR extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String postUrl = "http://198.168.1.2/connections/connection/";
-    private String getUrl = "http://198.168.1.2/connections/waitingForConnection/";
-    private String getUserBalance = "http://198.168.1.2/rest/users/";
+    private String postUrl = "http://192.168.2.242:8080/connections/connection/";
+    private String getUrl = "http://192.168.2.242:8080/connections/waitingForConnection/";
+    private String getUserBalance = "http://192.168.2.242:8080/rest/users/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postQRCode;
@@ -196,7 +196,7 @@ public class WaitingScreenQR extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_bos, menu);
         return true;
     }
 }

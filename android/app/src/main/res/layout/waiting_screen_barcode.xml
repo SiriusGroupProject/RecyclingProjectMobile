@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_main"
+        app:menu="@menu/menu_bos"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title=" "
         app:titleTextColor="#FFFFFF" />

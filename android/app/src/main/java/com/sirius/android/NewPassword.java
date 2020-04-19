@@ -40,8 +40,8 @@ public class NewPassword extends AppCompatActivity {
     private EditText passwordText;
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    private String urlUpdate = "http://198.168.1.2/rest/users/updateUser";
-    private String urlGetUser = "http://198.168.1.2/rest/users/";
+    private String urlUpdate = "http://192.168.2.242:8080/rest/users/updateUser";
+    private String urlGetUser = "http://192.168.2.242:8080/rest/users/";
     private String email;
     private String name;
     private String surname;
@@ -158,8 +158,11 @@ public class NewPassword extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Log.d("**", response.toString());
+                                    Intent intentTransfer2 = new Intent(NewPassword.this, UserProfile.class);
+                                    intentTransfer2.putExtra("mail", email); // nameText.getText().toString()
                                     Intent intent = new Intent(NewPassword.this, UserProfile.class);
                                     startActivity(intent);
+                                    startActivity(intentTransfer2);
                                     Toast.makeText(getApplicationContext(), "Şifreniz başarıyla değiştirilmiştir.", Toast.LENGTH_LONG).show();
                                 }
                             }, new Response.ErrorListener() {

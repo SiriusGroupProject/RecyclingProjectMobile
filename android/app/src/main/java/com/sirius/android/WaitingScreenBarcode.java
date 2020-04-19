@@ -23,8 +23,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String postUrl = "http://198.168.1.2/connections/forwardScannedBarcode/";
-    private String getUrl = "http://198.168.1.2/connections/getBottleVerification/";
+    private String postUrl = "http://192.168.2.242:8080/connections/forwardScannedBarcode/";
+    private String getUrl = "http://192.168.2.242:8080/connections/getBottleVerification/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postBarcode;
@@ -169,7 +169,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_bos, menu);
         return true;
     }
 }

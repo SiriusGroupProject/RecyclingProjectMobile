@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class Login extends AppCompatActivity {
     private String name;
     private String password;
-    private String url = "http://198.168.1.2/rest/users/login";
+    private String url = "http://192.168.2.242:8080/rest/users/login";
     private Button loginButton;
     private EditText nameText, passwordText;
     private TextView createAccountLink;
@@ -221,8 +221,10 @@ public class Login extends AppCompatActivity {
                 b.putString("userID",nameText.getText().toString()); //Your id
                 intent.putExtras(b);
                 startActivity(intent);
-                Intent intentTransfer = new Intent(Login.this, UserProfile.class);
+                Intent intentTransfer = new Intent(Login.this, NewPassword.class);
                 intentTransfer.putExtra("mail", nameText.getText().toString()); // nameText.getText().toString()
+                Intent intentTransfer2 = new Intent(Login.this, UserProfile.class);
+                intentTransfer2.putExtra("mail", nameText.getText().toString()); // nameText.getText().toString()
             }else if(s.equals("false")){
                 Toast.makeText(getApplicationContext(), "Yanlış şifre ya da email. Lüften tekrar deneyiniz.", Toast.LENGTH_LONG).show();
             }else {

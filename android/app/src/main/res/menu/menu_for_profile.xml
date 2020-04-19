@@ -4,12 +4,12 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_logout"
-        android:title="Çıkış"
         android:orderInCategory="100"
+        android:title="@string/k"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_profile"
-        android:title="Profil"
         android:orderInCategory="100"
+        android:title="@string/otomatlar"
         app:showAsAction="never" />
 </menu>

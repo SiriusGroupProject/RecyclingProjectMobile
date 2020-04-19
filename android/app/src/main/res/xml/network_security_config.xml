@@ -10,7 +10,7 @@
         <domain includeSubdomains="true">10.0.2.2</domain> // ip edit
     </domain-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">127.0.0.1</domain> // ip edit
+        <domain includeSubdomains="true">192.168.2.242</domain> // ip edit
     </domain-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">198.168.1.2</domain> // ip edit
