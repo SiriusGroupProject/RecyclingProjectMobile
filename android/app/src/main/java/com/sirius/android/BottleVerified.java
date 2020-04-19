@@ -35,8 +35,8 @@ public class BottleVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/getResult/";
-    private String bottleInfoUrl = "http://recyclingprojectsirius.herokuapp.com/rest/bottles/";
+    private String getUrl = "http://198.168.1.2/connections/getResult/";
+    private String bottleInfoUrl = "http://198.168.1.2/rest/bottles/";
     private Handler customHandler;
     private StringRequest closeOrNew;
     private JsonObjectRequest bottlePrice;

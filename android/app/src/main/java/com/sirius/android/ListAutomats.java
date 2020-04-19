@@ -7,6 +7,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,32 +102,21 @@ public class ListAutomats extends AppCompatActivity implements
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
      */
     private boolean mPermissionDenied = false;
-    private static final LatLng SOGUTOZU = new LatLng(39.97999954223633, 32.75);
-    private static final LatLng DEMETEVLER = new LatLng(39.96727752685547, 32.76835632324219);
-    private static final LatLng SALIHLER = new LatLng(40.13569259643555, 32.164833068847656);
-    private static final LatLng MEBUSEVLERI = new LatLng(39.926185607910156, 32.83745574951172);
 
-    //NOT ACTIVE SO DONT SHOW
-    //private static final LatLng KUCUKESAT = new LatLng(39.90989685058594, 32.867218017578125);
 
-    //DATABASE'TEN CEKILDIGI ZAMAN
-    // private String getUrl = "http://recyclingprojectsirius.herokuapp.com/rest/automats/listAutomats";
-    private static RequestQueue mRequestQueue;
-    private static String mStringRequest;
+    private String getUrl = "http://192.168.1.2:8080/rest/automats/listAutomats";
+    private static StringRequest mStringRequest;
     private static String userId;
 
     private GoogleMap mMap;
 
-    private Marker mSogutozu;
-    private Marker mDemet;
-    private Marker mSalihler;
-    private Marker mMebusevleri;
-    //private Marker mKucukesat;
+    private boolean markersAreReady=false;
 
     private Marker mLastSelectedMarker;
 
-    private List<String> automatInfos = new ArrayList<>();
+    private List<String[]> automatInfos = new ArrayList<>();
     private List<Marker> mMarkerRainbow = new ArrayList<>(); // list olarak
+    private List<LatLng> locList = new ArrayList<>(); // latlng list include vs icin
 
     /** Demonstrates customizing the info window and/or its contents. */
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
@@ -204,12 +194,8 @@ public class ListAutomats extends AppCompatActivity implements
             // Refresh the info window when the info window's content has changed.
             mLastSelectedMarker.showInfoWindow();
         }
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        new OnMapAndViewReadyListener(mapFragment, this);
-        //IDK WHAT mapFragment.getMapAsync(this);
 
-        /*mRequestQueue = Volley.newRequestQueue(this);
+
 
         mStringRequest = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
             @Override
@@ -220,32 +206,36 @@ public class ListAutomats extends AppCompatActivity implements
                     for (int i = 0; i < length; ++i) {
                         final JSONObject automat = objectArray.getJSONObject(i);
                         String id = automat.getString("id");
-                        if(id.length()==8){
-                            String username = user.getString("name");
-                            String usersurname = user.getString("surname");
-                            name = username+ " "+usersurname;
-                            name = name.toUpperCase();
-                            balance = user.getDouble("balance");
-                            balanceFinal = Double.toString(balance);
+                        boolean active = automat.getBoolean("active");
+                        if(active){
+                            String[] automatInfo = new String[6];
+                            automatInfo[0] = automat.getDouble("capacity")+"";
+                            JSONObject location = automat.getJSONObject("location");
+                            double latitute = location.getDouble("latitude");
+                            double longitude = location.getDouble("longitude");
+                            automatInfo[1] = latitute+"";
+                            automatInfo[2] = longitude+"";
+                            locList.add(new LatLng(latitute,longitude));
+                            automatInfo[3] = location.getString("neighborhood");
+                            automatInfo[4] = location.getString("district");
+                            automatInfo[5] = location.getString("province");
+                            automatInfos.add(automatInfo);
                         }
                     }
+                    markersAreReady=true;
+                    markersReady();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                nameText = (TextView) findViewById(R.id.name);
-                balanceText = (TextView) findViewById(R.id.balance);
-                nameText.setText(name);
-                balanceText.setText(balanceFinal);
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Error");
+                System.out.println("List Automats get error");
             }
-        });
-
-        mRequestQueue.add(mStringRequest);*/
+        });// Adding request to request queue
+        Volley.newRequestQueue(ListAutomats.this).add(mStringRequest);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,6 +247,25 @@ public class ListAutomats extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+
+
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        new OnMapAndViewReadyListener(mapFragment, this);
+        //mapFragment.getMapAsync(this);
+
+    }
+
+    public void markersReady(){
+        if(checkReady()){
+            addMarkersToMap();
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for(int i=0;i<locList.size();i++){
+                builder.include(locList.get(i));
+            }
+            LatLngBounds bounds = builder.build();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+        }
 
     }
 
@@ -270,8 +279,6 @@ public class ListAutomats extends AppCompatActivity implements
 
         enableMyLocation();
 
-        // Add lots of markers to the map.
-        addMarkersToMap();
 
         // Setting an info window adapter allows us to change the both the contents and look of the
         // info window.
@@ -287,14 +294,6 @@ public class ListAutomats extends AppCompatActivity implements
         // Ideally this string would be localised.
         mMap.setContentDescription("Automat Locations");
 
-        LatLngBounds bounds = new LatLngBounds.Builder()
-                .include(SOGUTOZU)
-                .include(DEMETEVLER)
-                .include(SALIHLER)
-                .include(MEBUSEVLERI)
-                //.include(KUCUKESAT)
-                .build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50)); // ZOOM ICIN BURAYI DEGISTIR 14 yapmis insanlar
     }
 
     /**
@@ -355,41 +354,33 @@ public class ListAutomats extends AppCompatActivity implements
 
 
     private void addMarkersToMap() {
+
+        for(int i=0;i<automatInfos.size();i++){
+            String[] info = automatInfos.get(i);
+            LatLng location = new LatLng(Double.parseDouble(info[1]),Double.parseDouble(info[2]));
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(location)
+                    .title(info[3])
+                    .snippet("Kapasite: " + info[0] + " , Yer: " + info[3] + ", " + info[4] + ", " + info[5])
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.recycle_32))
+                    .infoWindowAnchor(0.5f, 0.5f));
+            mMarkerRainbow.add(marker);
+        }
         /* Uses a colored icon.
         mBrisbane = mMap.addMarker(new MarkerOptions()
                 .position(BRISBANE)
                 .title("Brisbane")
                 .snippet("Population: 2,074,200")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        */
+
         // Uses a custom icon with the info window popping out of the center of the icon.
         mSogutozu = mMap.addMarker(new MarkerOptions()
                 .position(SOGUTOZU)
                 .title("Söğütözü")
                 .snippet("Kapasite: 95.5 Yer: Söğütözü,Çankaya,Ankara")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.recycle_32))
-                .infoWindowAnchor(0.5f, 0.5f));
-        // Uses a custom icon with the info window popping out of the center of the icon.
-        mDemet = mMap.addMarker(new MarkerOptions()
-                .position(DEMETEVLER)
-                .title("Demetevler")
-                .snippet("Kapasite: 45 Yer: Demetevler,Yenimahalle,Ankara")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.recycle_32))
-                .infoWindowAnchor(0.5f, 0.5f));
-        // Uses a custom icon with the info window popping out of the center of the icon.
-        mSalihler = mMap.addMarker(new MarkerOptions()
-                .position(SALIHLER)
-                .title("Salihler")
-                .snippet("Kapasite: 45 Yer: Salihler,Güdül,Ankara")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.recycle_32))
-                .infoWindowAnchor(0.5f, 0.5f));
-        // Uses a custom icon with the info window popping out of the center of the icon.
-        mMebusevleri = mMap.addMarker(new MarkerOptions()
-                .position(MEBUSEVLERI)
-                .title("Mebusevleri")
-                .snippet("Kapasite: 45 Yer: Mebusevleri,Çankaya,Ankara")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.recycle_32))
-                .infoWindowAnchor(0.5f, 0.5f));
+                .infoWindowAnchor(0.5f, 0.5f));*/
+
 
     }
     private boolean checkReady() {
@@ -402,39 +393,7 @@ public class ListAutomats extends AppCompatActivity implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        /*if (marker.equals(mPerth)) {
-            // This causes the marker at Perth to bounce into position when it is clicked.
-            final Handler handler = new Handler();
-            final long start = SystemClock.uptimeMillis();
-            final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    long elapsed = SystemClock.uptimeMillis() - start;
-                    float t = Math.max(
-                            1 - interpolator.getInterpolation((float) elapsed / duration), 0);
-                    marker.setAnchor(0.5f, 1.0f + 2 * t);
-
-                    if (t > 0.0) {
-                        // Post again 16ms later.
-                        handler.postDelayed(this, 16);
-                    }
-                }
-            });
-        } else if (marker.equals(mAdelaide)) {
-            // This causes the marker at Adelaide to change color and alpha.
-            marker.setIcon(BitmapDescriptorFactory.defaultMarker(mRandom.nextFloat() * 360));
-            marker.setAlpha(mRandom.nextFloat());
-        }
-
-        // Markers have a z-index that is settable and gettable.
-        float zIndex = marker.getZIndex() + 1.0f;
-        marker.setZIndex(zIndex);
-        Toast.makeText(this, marker.getTitle() + " z-index set to " + zIndex,
-                Toast.LENGTH_SHORT).show();*/
 
         mLastSelectedMarker = marker;
         // We return false to indicate that we have not consumed the event and that we wish

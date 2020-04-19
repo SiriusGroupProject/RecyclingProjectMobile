@@ -7,6 +7,15 @@
         <domain includeSubdomains="true">192.168.1.6</domain> // ip edit
     </domain-config>
     <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">10.0.2.2</domain> // ip edit
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">127.0.0.1</domain> // ip edit
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">198.168.1.2</domain> // ip edit
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">recyclingprojectsirius.herokuapp.com</domain> // ip edit
     </domain-config>
 </network-security-config>

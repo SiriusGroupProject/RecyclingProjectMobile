@@ -23,8 +23,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String postUrl = "http://recyclingprojectsirius.herokuapp.com/connections/forwardScannedBarcode/";
-    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/getBottleVerification/";
+    private String postUrl = "http://198.168.1.2/connections/forwardScannedBarcode/";
+    private String getUrl = "http://198.168.1.2/connections/getBottleVerification/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postBarcode;
