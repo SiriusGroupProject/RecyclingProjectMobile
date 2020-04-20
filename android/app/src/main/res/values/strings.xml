@@ -51,5 +51,6 @@
     <string name="location_permission_denied">Konum erişme isteği reddedildi.</string>
     <string name="permission_required_toast">İsteğin kabul edilmesi zorunludur.</string>
     <string name="permission_rationale_location">Konum gösterilebilmesi için izin verilmesi zorunludur.</string>
+    <string name="timeout_profile">Gereken sürede işlem yapamadınız. Lütfen tekrar deneyiniz.</string>
 
 </resources>

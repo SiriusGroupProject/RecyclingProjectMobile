@@ -104,7 +104,7 @@ public class ListAutomats extends AppCompatActivity implements
     private boolean mPermissionDenied = false;
 
 
-    private String getUrl = "http://192.168.2.242:8080/rest/automats/listAutomats";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/rest/automats/listAutomats";
     private static StringRequest mStringRequest;
     private static String userId;
 

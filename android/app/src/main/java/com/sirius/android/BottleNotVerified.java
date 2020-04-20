@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,7 +27,7 @@ public class BottleNotVerified extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String getUrl = "http://192.168.2.242:8080/connections/getResult/";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/getResult/";
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
     private int counter=0;
@@ -148,6 +149,18 @@ public class BottleNotVerified extends AppCompatActivity {
 
 
 
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),R.string.timeout_profile,Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(BottleNotVerified.this, UserProfile.class);
+                    Bundle bu = new Bundle();
+                    bu.putString("mail", userId); //Your id
+                    intent.putExtras(bu);
+                    finish();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

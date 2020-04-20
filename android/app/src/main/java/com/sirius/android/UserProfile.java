@@ -29,7 +29,7 @@ public class UserProfile extends AppCompatActivity {
     private String name;
     private double balance;
     private String balanceFinal;
-    private String url = "http://192.168.2.242:8080/rest/users/listUsers";
+    private String url = "http://recyclingprojectsirius.herokuapp.com/rest/users/listUsers";
     private TextView mailText;
     private TextView nameText;
     private TextView balanceText;
@@ -142,6 +142,7 @@ public class UserProfile extends AppCompatActivity {
                 balanceText = (TextView) findViewById(R.id.balance);
                 nameText.setText(name);
                 balanceText.setText(balanceFinal);
+                System.out.println("name: " + name + " balance: " + balanceFinal);
 
             }
         }, new Response.ErrorListener() {

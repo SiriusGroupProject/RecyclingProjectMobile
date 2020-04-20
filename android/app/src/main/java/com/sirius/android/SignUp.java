@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
-    private String url = "http://192.168.2.242:8080/rest/users/addUser"; // ip edit
+    private String url = "http://recyclingprojectsirius.herokuapp.com/rest/users/addUser"; // ip edit
     private Button signUpButton;
     private EditText nameText, surnameText, emailText, passwordText;
     private TextView signInLink;

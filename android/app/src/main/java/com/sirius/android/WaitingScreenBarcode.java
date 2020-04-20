@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,8 +24,8 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private String automatId;
     private double balance;
     private String barcode;
-    private String postUrl = "http://192.168.2.242:8080/connections/forwardScannedBarcode/";
-    private String getUrl = "http://192.168.2.242:8080/connections/getBottleVerification/";
+    private String postUrl = "http://recyclingprojectsirius.herokuapp.com/connections/forwardScannedBarcode/";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/getBottleVerification/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postBarcode;
@@ -94,7 +95,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         public void run() {
             try {
 
-                if (counter < 5) {
+                if (counter < 30) {
                     // prepare the Request
                     isVerified = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
@@ -162,10 +163,10 @@ public class WaitingScreenBarcode extends AppCompatActivity {
 
                 }
                 else{
+                    Toast.makeText(getApplicationContext(),R.string.timeout_profile,Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(WaitingScreenBarcode.this, UserProfile.class);
                     Bundle bu = new Bundle();
-                    bu.putString("userID", userId); //Your id
-                    bu.putDouble("balance", balance);
+                    bu.putString("mail", userId); //Your id
                     intent.putExtras(bu);
                     finish();
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

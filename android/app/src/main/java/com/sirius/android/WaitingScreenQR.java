@@ -30,9 +30,9 @@ public class WaitingScreenQR extends AppCompatActivity {
     private String userId;
     private String automatId;
     private double balance;
-    private String postUrl = "http://192.168.2.242:8080/connections/connection/";
-    private String getUrl = "http://192.168.2.242:8080/connections/waitingForConnection/";
-    private String getUserBalance = "http://192.168.2.242:8080/rest/users/";
+    private String postUrl = "http://recyclingprojectsirius.herokuapp.com/connections/connection/";
+    private String getUrl = "http://recyclingprojectsirius.herokuapp.com/connections/waitingForConnection/";
+    private String getUserBalance = "http://recyclingprojectsirius.herokuapp.com/rest/users/";
     private Handler customHandler;
     private RequestQueue queue;
     private StringRequest postQRCode;
@@ -123,7 +123,7 @@ public class WaitingScreenQR extends AppCompatActivity {
 
             try {
 
-                if (counter < 30) {
+                if (counter < 20) {
                     isConnected = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -175,6 +175,18 @@ public class WaitingScreenQR extends AppCompatActivity {
                     //write here whaterver you want to repeat
 
 
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),R.string.timeout_profile,Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(WaitingScreenQR.this, UserProfile.class);
+                    Bundle bu = new Bundle();
+                    bu.putString("mail", userId); //Your id
+                    intent.putExtras(bu);
+                    finish();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
