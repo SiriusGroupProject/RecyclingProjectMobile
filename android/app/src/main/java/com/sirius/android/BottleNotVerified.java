@@ -29,7 +29,7 @@ public class BottleNotVerified extends AppCompatActivity {
     private String getUrl = "http://192.168.2.242:8080/connections/getResult/";
     private Handler customHandler;
     private StringRequest closeOrNewOrRepeat;
-    private int counter;
+    private int counter=0;
     private boolean stop = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class BottleNotVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 5000);
+        customHandler.postDelayed(updateTimerThread, 10000);
 
 
     }
@@ -69,14 +69,13 @@ public class BottleNotVerified extends AppCompatActivity {
 
         public void run() {
             try {
-                counter = 0;
-                while (counter < 20) {
+                if (counter < 20) {
                     // prepare the Request
                     closeOrNewOrRepeat = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             try {
-                                Log.d(response, response);
+                                Log.d("bottlenotverf response", response);
                                 System.out.println(response);
                                 if (response.equals("3")) { // AYNI ŞİŞEYLE DEVAM
                                     stop = true;
@@ -89,9 +88,16 @@ public class BottleNotVerified extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 } else if (response.equals("2")) { // DAHA SEÇİM YAPILMADI
                                     stop = false;
+                                    counter++;
+                                    System.out.println("Bottle Not Verified sayfasinda cevap false geldi.  counter: " + counter);
+                                    Thread.sleep(1500);
+                                    run();
                                 } else if (response.equals("1")) { // YENİ İŞLEM YAPILACAK
                                     stop = true;
                                     Intent intent = new Intent(BottleNotVerified.this, ScanBarcode.class);
@@ -102,6 +108,9 @@ public class BottleNotVerified extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 } else if (response.equals("0")) { // BALANCE EKRARNINA GEC
                                     stop = true;
@@ -113,6 +122,9 @@ public class BottleNotVerified extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
 
@@ -133,21 +145,14 @@ public class BottleNotVerified extends AppCompatActivity {
 
                     // add it to the RequestQueue
                     Volley.newRequestQueue(BottleNotVerified.this).add(closeOrNewOrRepeat);
-                    Thread.sleep(1000);
-                    //write here whaterver you want to repeat
 
-                    counter++;
 
 
                 }
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
         }
         };
 

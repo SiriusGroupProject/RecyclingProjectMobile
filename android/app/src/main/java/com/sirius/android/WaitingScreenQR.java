@@ -37,7 +37,7 @@ public class WaitingScreenQR extends AppCompatActivity {
     private RequestQueue queue;
     private StringRequest postQRCode;
     private StringRequest isConnected;
-    private int counter;
+    private int counter=0;
     private boolean stop = false;
     private String responseS = "f";
     @Override
@@ -115,36 +115,43 @@ public class WaitingScreenQR extends AppCompatActivity {
 
 
     }
-    private Runnable updateTimerThread = new Runnable()
-    {
 
-        public void run()
-        {
+    private final Runnable updateTimerThread = new Runnable() {
+
+        public void run() {
 
 
             try {
-                Thread.sleep(5000);
-                counter = 0;
-                while (counter < 3) {
+
+                if (counter < 10) {
                     isConnected = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             try {
-                                Log.d(response,response);
-                                if(response.equals("true")){
+                                Log.d("Waiting screen response", response);
+
+                                if (response.equals("true")) {
                                     stop = true;
                                     responseS = "t";
                                     Intent intent = new Intent(WaitingScreenQR.this, ScanBarcode.class);
                                     Bundle bu = new Bundle();
-                                    bu.putString("userID",userId); //Your id
-                                    bu.putString("automatID",automatId);
-                                    bu.putDouble("balance",balance); // kullanıcının bilgisi çekilecek ????*1*1*1
+                                    bu.putString("userID", userId); //Your id
+                                    bu.putString("automatID", automatId);
+                                    bu.putDouble("balance", balance); // kullanıcının bilgisi çekilecek ????*1*1*1
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
 
 
+                                } else {
+                                    counter++;
+                                    System.out.println("Waiting Screen QR sayfasinda cevap false geldi.  counter: " + counter);
+                                    Thread.sleep(1000);
+                                    run();
                                 }
 
 
@@ -164,31 +171,19 @@ public class WaitingScreenQR extends AppCompatActivity {
 
                     // add it to the RequestQueue
                     Volley.newRequestQueue(WaitingScreenQR.this).add(isConnected);
-                    Thread.sleep(1000);
+
                     //write here whaterver you want to repeat
 
-                    counter++;
 
                 }
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(responseS.equals("t")){
-                Intent intent = new Intent(WaitingScreenQR.this, ScanBarcode.class);
-                Bundle bu = new Bundle();
-                bu.putString("userID",userId); //Your id
-                bu.putString("automatID",automatId);
-                bu.putDouble("balance",balance); // kullanıcının bilgisi çekilecek ????*1*1*1
-                // balance da eklencek
-                intent.putExtras(bu);
-                startActivity(intent);
             }
 
+
+        }
+
+        public void onFailedResponse() {
 
         }
     };

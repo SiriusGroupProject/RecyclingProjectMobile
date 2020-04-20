@@ -29,7 +29,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
     private RequestQueue queue;
     private StringRequest postBarcode;
     private StringRequest isVerified;
-    private int counter;
+    private int counter=0;
     private boolean stop = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         });// Adding request to request queue
         Volley.newRequestQueue(WaitingScreenBarcode.this).add(postBarcode);
 
-        customHandler.postDelayed(updateTimerThread, 3000);
+        customHandler.postDelayed(updateTimerThread, 10000);
 
 
     }
@@ -94,17 +94,20 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         public void run() {
             try {
 
-                counter = 0;
-                while (counter < 20) {
+                if (counter < 20) {
                     // prepare the Request
                     isVerified = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             try {
-                                Log.d(response, response);
+                                Log.d("waitingbarcoderesponse", response);
                                 System.out.println(response);
                                 if (response.equals("2")) {
                                     stop = false;
+                                    counter++;
+                                    System.out.println("Waiting Screen Barcode sayfasinda cevap false geldi.  counter: " + counter);
+                                    Thread.sleep(1500);
+                                    run();
 
                                 } else if (response.equals("1")) { // VERIFIED
                                     stop = true;
@@ -117,6 +120,9 @@ public class WaitingScreenBarcode extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 } else if (response.equals("0")) { // NOT VERIFIED
                                     stop = true;
@@ -129,6 +135,9 @@ public class WaitingScreenBarcode extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
 
@@ -149,19 +158,13 @@ public class WaitingScreenBarcode extends AppCompatActivity {
 
                     // add it to the RequestQueue
                     Volley.newRequestQueue(WaitingScreenBarcode.this).add(isVerified);
-                    Thread.sleep(1000);
 
-                    counter++;
 
                 }
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
         }
 
     };

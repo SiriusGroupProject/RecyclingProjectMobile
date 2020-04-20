@@ -42,7 +42,7 @@ public class BottleVerified extends AppCompatActivity {
     private JsonObjectRequest bottlePrice;
     private TextView balanceText;
     private double addToBalance;
-    private int counter;
+    private int counter=0;
     private boolean stop = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +102,7 @@ public class BottleVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 5000);
+        customHandler.postDelayed(updateTimerThread, 10000);
 
 
     }
@@ -111,17 +111,20 @@ public class BottleVerified extends AppCompatActivity {
 
         public void run() {
             try {
-                counter = 0;
-                while (counter < 10) {
+                if (counter < 20) {
                     // prepare the Request
                     closeOrNew = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             try {
-                                Log.d(response, response);
+                                Log.d("bottle vrified respse", response);
                                 System.out.println(response);
                                 if (response.equals("2")) { // DAHA CEVAP GELMEDİ
                                     stop = false;
+                                    counter++;
+                                    System.out.println("Bottle Verified sayfasinda cevap false geldi.  counter: " + counter);
+                                    Thread.sleep(1500);
+                                    run();
                                 } else if (response.equals("1")) { // YENİ İŞLEM YAPILACAK
                                     stop = true;
                                     Intent intent = new Intent(BottleVerified.this, ScanBarcode.class);
@@ -132,6 +135,9 @@ public class BottleVerified extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 } else if (response.equals("0")) { // BALANCE EKRANINA GEC
                                     stop = true;
@@ -143,6 +149,9 @@ public class BottleVerified extends AppCompatActivity {
                                     // balance da eklencek
                                     intent.putExtras(bu);
                                     finish();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                            Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
 
@@ -162,20 +171,14 @@ public class BottleVerified extends AppCompatActivity {
 
                     // add it to the RequestQueue
                     Volley.newRequestQueue(BottleVerified.this).add(closeOrNew);
-                    Thread.sleep(1000);
                     //write here whaterver you want to repeat
 
-                    counter++;
 
                 }
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
         }
         };
 
