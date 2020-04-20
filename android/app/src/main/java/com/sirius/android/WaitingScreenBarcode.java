@@ -94,7 +94,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
         public void run() {
             try {
 
-                if (counter < 20) {
+                if (counter < 5) {
                     // prepare the Request
                     isVerified = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
@@ -106,7 +106,7 @@ public class WaitingScreenBarcode extends AppCompatActivity {
                                     stop = false;
                                     counter++;
                                     System.out.println("Waiting Screen Barcode sayfasinda cevap false geldi.  counter: " + counter);
-                                    Thread.sleep(1500);
+                                    Thread.sleep(2000);
                                     run();
 
                                 } else if (response.equals("1")) { // VERIFIED
@@ -160,6 +160,18 @@ public class WaitingScreenBarcode extends AppCompatActivity {
                     Volley.newRequestQueue(WaitingScreenBarcode.this).add(isVerified);
 
 
+                }
+                else{
+                    Intent intent = new Intent(WaitingScreenBarcode.this, UserProfile.class);
+                    Bundle bu = new Bundle();
+                    bu.putString("userID", userId); //Your id
+                    bu.putDouble("balance", balance);
+                    intent.putExtras(bu);
+                    finish();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

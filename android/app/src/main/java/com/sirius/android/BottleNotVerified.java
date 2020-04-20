@@ -60,7 +60,7 @@ public class BottleNotVerified extends AppCompatActivity {
 
         System.out.println(getUrl);
 
-        customHandler.postDelayed(updateTimerThread, 10000);
+        customHandler.postDelayed(updateTimerThread, 8000);
 
 
     }
@@ -69,7 +69,7 @@ public class BottleNotVerified extends AppCompatActivity {
 
         public void run() {
             try {
-                if (counter < 20) {
+                if (counter < 30) {
                     // prepare the Request
                     closeOrNewOrRepeat = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
@@ -96,7 +96,7 @@ public class BottleNotVerified extends AppCompatActivity {
                                     stop = false;
                                     counter++;
                                     System.out.println("Bottle Not Verified sayfasinda cevap false geldi.  counter: " + counter);
-                                    Thread.sleep(1500);
+                                    Thread.sleep(2000);
                                     run();
                                 } else if (response.equals("1")) { // YENİ İŞLEM YAPILACAK
                                     stop = true;

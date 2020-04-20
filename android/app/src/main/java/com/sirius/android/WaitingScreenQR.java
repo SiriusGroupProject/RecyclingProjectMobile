@@ -123,7 +123,7 @@ public class WaitingScreenQR extends AppCompatActivity {
 
             try {
 
-                if (counter < 10) {
+                if (counter < 30) {
                     isConnected = new StringRequest(Request.Method.GET, getUrl, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -150,7 +150,7 @@ public class WaitingScreenQR extends AppCompatActivity {
                                 } else {
                                     counter++;
                                     System.out.println("Waiting Screen QR sayfasinda cevap false geldi.  counter: " + counter);
-                                    Thread.sleep(1000);
+                                    Thread.sleep(2000);
                                     run();
                                 }
 
